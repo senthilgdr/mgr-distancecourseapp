@@ -28,13 +28,36 @@
 			<li class="dropdown"><a class="dropdown-toggle"
 				data-toggle="dropdown" href="#">Users <span class="caret"></span></a>
 				<ul class="dropdown-menu">
-
+<li><a href="../users/list" th:href="@{/users/list}">All
+							Users</a></li>
 					<li><a href="../roles/list" th:href="@{/roles/list}">All
 							Roles</a></li>
 
 
 				</ul></li>
 		</ul>
+		<div class="navbar-header pull-right">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown" th:if="${session.LOGGED_IN_USER != null}">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome
+						<span class="glyphicon glyphicon-user"
+						th:if="@{session.LOGGED_IN_USER !=null}"
+						th:text="${session.LOGGED_IN_USER.name}"></span>!!!
+				</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="../users/MyProfile"
+							th:href="@{/users/myProfile}">My Profile </a></li>
+						<li><a href="../auth/Logout" th:href="@{/auth/Logout}">Sign
+								Out ! </a></li>
+						
+					</ul>
+				</li>
+			</ul>
+
+
+		</div>
 
 	</div>
 </nav>
