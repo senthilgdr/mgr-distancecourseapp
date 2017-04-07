@@ -43,5 +43,14 @@ public class UserService {
 
 		userDAO.save(user);
 	}
+	public void forgotPassword(String emailId) throws Exception {
+
+		User user = userDAO.findByEmailId(emailId);
+
+		if (user == null) {
+			throw new Exception("MailId does not exists");
+		}
+
+	}	
 
 }

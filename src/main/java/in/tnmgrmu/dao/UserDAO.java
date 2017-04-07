@@ -110,4 +110,25 @@ public class UserDAO {
 		System.out.println("No of rows deleted:" + rows);
 
 	}
+	
+	public User findByEmailId(String emailId) {
+
+		String sql = "select u.id, u.name, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? ";
+
+		User user = null;
+
+		try {
+			user = jdbcTemplate.queryForObject(sql, new Object[] { emailId }, (rs, rowNum) -> {
+
+				User convert = convert(rs);
+				convert.setPassword(rs.getString("PASSWORD"));
+				return convert;
+
+			});
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return user;
+
+	}
 }
