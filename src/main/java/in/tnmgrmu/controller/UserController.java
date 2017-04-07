@@ -142,5 +142,29 @@ public class UserController {
 		}
 
 	}
+	
+
+	@GetMapping("/changepassword")
+	public String changepassword() {
+		return "user/changepassword";
+	}
+
+	@PostMapping("/updatePassword")
+	public String changePassword(@RequestParam("currentpassword") String currentpassword,
+			@RequestParam("newpassword") String newpassword, ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			User user = (User) session.getAttribute("LOGGED_IN_USER");
+			System.out.println("UpdatePassword:" + user);
+			userService.changePassword(user.getEmail(), currentpassword, newpassword);
+			session.invalidate();
+			return "redirect:/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "index";
+		}
+
+	}
 
 }

@@ -51,6 +51,20 @@ public class UserService {
 			throw new Exception("MailId does not exists");
 		}
 
-	}	
+	}
+	public void changePassword(String emailId, String oldPassword, String newPassword) throws Exception {
 
+		if (oldPassword.equals(newPassword)) {
+			throw new Exception("Old Password and New Password is same");
+		}
+
+		User user = userDAO.findByEmailAndPassword(emailId, oldPassword);
+
+		if (user == null) {
+			throw new Exception("Invalid EmailId/Password");
+		}
+
+		boolean isModified = userDAO.changePassword(emailId, oldPassword, newPassword);
+	   System.out.println(isModified);
+	}
 }

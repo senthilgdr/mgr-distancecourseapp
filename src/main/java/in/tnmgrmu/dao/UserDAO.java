@@ -131,4 +131,19 @@ public class UserDAO {
 		return user;
 
 	}
+	
+	public boolean changePassword(String emailId, String oldPassword, String newPassword) {
+
+		boolean isModified = false;
+		String sql = "update user_accounts set password=?, modified_at= now() where email=? and password= ?";
+		Integer rows = jdbcTemplate.update(sql, newPassword, emailId, oldPassword);
+
+		if (rows >= 1) {
+			isModified = true;
+		}
+
+		System.out.println("No of rows Changed:" + rows);
+		return isModified;
+	}
+	
 }
