@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>CourseModules</title>
+</head>
+<body>
+<div th:include="layout/header"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-18">
+				<div class="portlet-title">
+					<div class="page-header">
+						<h3>CourseModules</h3>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="table-responsive">
+						<table class="table table-bordered">
+
+							<thead>
+								<tr>
+									<th>S.NO</th>
+									<th>COURSE NAME</th>
+									<th>MODULE NAME</th>
+									<th>ACTIVE</th>
+									<th>CREATED BY</th>
+									<th>CREATED DATE</th>
+									<th>MODIFIED BY</th>
+									<th>MODIFIED DATE</th>
+									
+									
+								</tr>
+							</thead>
+							<tbody>
+
+									
+								<tr th:each="coursemodule,iter  : ${COURSE_MODULE_LIST}">
+								<td th:text="${iter.index+1}"></td>
+									<td th:text="${coursemodule.course.courseName}"></td>
+									<td th:text="${coursemodule.moduleName}"></td>
+									<td th:text="${coursemodule.active}"></td>
+									<td th:text="${coursemodule.createdBy}"></td>
+									<td th:text="${coursemodule.createdDate}"></td>
+									<td th:text="${coursemodule.modifiedBy}"></td>
+									<td th:text="${coursemodule.modifiedDate}"></td>
+																
+											<td><a class='btn btn-danger'  href=""
+										th:href="@{/coursemodules/delete(id=${coursemodule.courseModuleId})}"><span
+											class='icon-pencil'></span>Delete</a></td>
+									
+								</tr>
+
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+
+
+</body>
+</html>
