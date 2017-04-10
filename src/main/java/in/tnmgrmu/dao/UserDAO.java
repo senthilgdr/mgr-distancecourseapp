@@ -101,6 +101,16 @@ public class UserDAO {
 		System.out.println("No of rows updated:" + rows);
 
 	}
+	
+	public void accountActivate(User user) {
+
+		String sql = "update user_accounts set active=1 where id= ? and active=0 ";
+
+		Integer rows = jdbcTemplate.update(sql, user.getId());
+
+		System.out.println("No of rows modified:" + rows);
+
+	}
 
 
 	public void delete(Long empId) {
@@ -113,7 +123,7 @@ public class UserDAO {
 	
 	public User findByEmailId(String emailId) {
 
-		String sql = "select u.id, u.name, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? ";
+		String sql = "select u.id, u.name, u.role_id ,r.name as role_name,u.password, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? ";
 
 		User user = null;
 
@@ -144,6 +154,15 @@ public class UserDAO {
 
 		System.out.println("No of rows Changed:" + rows);
 		return isModified;
+	}
+	public void addPasswordEntry(Long userId, String oldPassword, String newPassword) {
+
+		String sql = "INSERT INTO PASSWORD_HISTORY ( USER_ID, OLD_PASSWORD,NEW_PASSWORD,CREATED_AT)"
+				+ "VALUES(?, ?, ?,NOW())";
+		Integer rows = jdbcTemplate.update(sql, userId, oldPassword, newPassword);
+
+		System.out.println("No of rows Changed:" + rows);
+
 	}
 	
 }

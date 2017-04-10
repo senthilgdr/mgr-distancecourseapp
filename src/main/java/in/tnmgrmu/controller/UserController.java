@@ -166,5 +166,20 @@ public class UserController {
 		}
 
 	}
+	
+	@GetMapping("/accountAcivate")
+	public String accountAcivate(HttpSession session, ModelMap modelMap) throws Exception {
+
+		try {
+			User user = (User) session.getAttribute("LOGGED_IN_USER");
+			userService.accountActivate(user);
+			return "redirect:/";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "index";
+		}
+
+	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.tnmgrmu.dao.UserDAO;
+import in.tnmgrmu.mailmanager.UserMailManager;
 import in.tnmgrmu.model.User;
 
 @Service
@@ -38,10 +39,15 @@ public class UserService {
 
 		userDAO.update(user);
 	}
+	public void accountActivate(User user) {
 
-	public void register(User user) {
+		userDAO.accountActivate(user);
+	}
+
+	public void register(User user) throws Exception {
 
 		userDAO.save(user);
+		UserMailManager.sendNewRegistrationEmail(user);
 	}
 	public void forgotPassword(String emailId) throws Exception {
 
@@ -50,6 +56,7 @@ public class UserService {
 		if (user == null) {
 			throw new Exception("MailId does not exists");
 		}
+		UserMailManager.sendPassword(user);
 
 	}
 	public void changePassword(String emailId, String oldPassword, String newPassword) throws Exception {
@@ -65,6 +72,13 @@ public class UserService {
 		}
 
 		boolean isModified = userDAO.changePassword(emailId, oldPassword, newPassword);
-	   System.out.println(isModified);
+		if (isModified) {
+
+			userDAO.addPasswordEntry(user.getId(), oldPassword, newPassword);
+		} else {
+			throw new Exception("Unable to change Password.");
+
+		}
+		UserMailManager.changePassword(user, newPassword);
 	}
 }
