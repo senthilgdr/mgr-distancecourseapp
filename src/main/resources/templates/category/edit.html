@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Update Category</title>
+
+</head>
+<body>
+	<div th:include="layout/header"></div>
+	<div id="msg"></div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-2">
+
+				<div class="portlet-title">
+					<div class="page-header">
+						<h4>Update Category</h4>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<form id="updateCategoryFrm" class="form-horizontal" role="form"
+						method="GET" action="../categories/update">
+						<div class="form-group">
+							<input type="hidden"
+								class="form-control" th:value="${EDIT_CATEGORY.categoryId}" name="id" required="required"  readonly="readonly"
+								id="id"/>
+						</div>
+
+						<div class="form-group">
+							<label for="categoryName">Course Name:</label><input type="text"
+								class="form-control" th:value="${EDIT_CATEGORY.categoryName}"
+								name="categoryName" required="required" autofocus="autofocus"
+								id="courseName" />
+						</div>
+
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-success"
+								id="updateCategoryBtn">Submit</button>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>
