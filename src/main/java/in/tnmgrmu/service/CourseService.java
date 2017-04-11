@@ -21,6 +21,11 @@ public class CourseService {
 		return courseDAO.list();
 
 	}
+
+	public void save(Course course) {
+
+		courseDAO.save(course);
+	}
 	
 	public void delete(Long courseId) {
 

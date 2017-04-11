@@ -45,6 +45,9 @@
 									<td th:text="${course.createdDate}"></td>
 									<td th:text="${course.modifiedBy}"></td>
 									<td th:text="${course.modifiedDate}"></td>
+									
+									<td><a class='btn btn-success' href="" th:href="@{/courses/create}"><span
+											class='icon-pencil'></span>Add</a></td>
 																				
 									<td><a class='btn btn-success'  href=""
 										th:href="@{/courses/edit(id=${course.courseId})}"><span

@@ -40,6 +40,32 @@ public class CourseController {
 			return "/home";
 		}
 	}
+	@GetMapping("/create")
+	public String create() {
+		return "course/add";
+	}
+
+	@GetMapping("/save")
+	public String save(@RequestParam("courseName") String courseName,@RequestParam("description") String description, ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			User user = (User) session.getAttribute("LOGGED_IN_USER");
+			// Step : Store in View
+			Course course = new Course();
+			course.setCourseName(courseName);
+			course.setDescription(description);
+			
+			course.setCreatedBy(user.getId());
+			
+			courseService.save(course);
+
+			return "redirect:list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "add";
+		}
+	}
 
 	@GetMapping("/delete")
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {

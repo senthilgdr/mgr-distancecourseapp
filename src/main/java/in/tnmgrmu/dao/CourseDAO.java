@@ -49,6 +49,14 @@ public class CourseDAO {
 		});
 		return list;
 	}
+	public void save(Course course) {
+
+		String sql = "insert into courses ( course_name,description,created_by,modified_by) values ( ?,?,?,?)";
+
+		int rows = jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(),course.getCreatedBy(),course.getCreatedBy());
+
+		System.out.println("No of rows inserted:" + rows);
+	}
 
 	public void update(Course course) {
 
