@@ -85,6 +85,51 @@ public class CourseCategoryController {
 			return "add";
 		}
 	}
+	@GetMapping("/edit")
+	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
+
+		try {
+
+			CourseCategory courseCategory = courseCategoryService.findById(id);
+			modelMap.addAttribute("EDIT_COURSE_CATEGORY", courseCategory);
+
+			return "coursecategory/edit";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "coursecategory/list";
+		}
+
+	}
+
+	@GetMapping("/update")
+	public String update(@RequestParam("id") Long id,@RequestParam("courseId") Long courseId,@RequestParam("categoryId") Long categoryId, ModelMap modelMap,
+			HttpSession session) throws Exception {
+
+		try {
+         CourseCategory courseCategory = new CourseCategory();
+         courseCategory.setCcId(id);
+			
+			Course course=new Course();
+			course.setCourseId(courseId);			
+			
+			Category category=new Category();
+			category.setCategoryId(categoryId);		
+			
+			courseCategory.setCourse(course);
+			courseCategory.setCategory(category);
+						
+			courseCategoryService.update(courseCategory);
+					
+			return "redirect:/coursecategories/list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "edit";
+		}
+
+	}
 
 	@GetMapping("/delete")
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {

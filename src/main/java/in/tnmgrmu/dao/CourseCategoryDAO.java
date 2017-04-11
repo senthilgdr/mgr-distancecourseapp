@@ -68,6 +68,15 @@ public class CourseCategoryDAO {
 		System.out.println("No of rows inserted:" + rows);
 	}
 
+	public void update( CourseCategory  courseCategory) {
+
+		String sql = "update course_categories set course_id=?,category_id=? where cc_id =? ";
+
+		Integer rows = jdbcTemplate.update(sql,  courseCategory.getCourse().getCourseId(), courseCategory.getCategory().getCategoryId(),courseCategory.getCcId());
+
+		System.out.println("No of rows modified:" + rows);
+
+	}
 	public void delete(Long courseId) {
 
 		String sql = "delete from course_categories where cc_id = ?";

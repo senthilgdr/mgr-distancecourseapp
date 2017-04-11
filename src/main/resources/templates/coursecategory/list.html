@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>CourseCategories</title>
+<title>CourseModules</title>
 </head>
 <body>
 <div th:include="layout/header"></div>
@@ -12,7 +12,7 @@
 			<div class="col-md-18">
 				<div class="portlet-title">
 					<div class="page-header">
-						<h3>CourseCategories</h3>
+						<h3>CourseModules</h3>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -43,7 +43,11 @@
 									
 									<td><a class='btn btn-success' href="" th:href="@{/coursecategories/create}"><span
 											class='icon-pencil'></span>Add</a></td>
-																		
+											
+									<td><a class='btn btn-success'  href=""
+										th:href="@{/coursecategories/edit(id=${coursecategory.ccId})}"><span
+											class='icon-pencil'></span>Edit</a></td>
+									
 											<td><a class='btn btn-danger'  href=""
 										th:href="@{/coursecategories/delete(id=${coursecategory.ccId})}"><span
 											class='icon-pencil'></span>Delete</a></td>

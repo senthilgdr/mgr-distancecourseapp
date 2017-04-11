@@ -31,5 +31,9 @@ public class CourseCategoryService {
 
 		courseCategoryDAO.delete(categoryId);
 	}	
+	public void update(CourseCategory category) {
+
+		courseCategoryDAO.update(category);
+	}
 
 }
