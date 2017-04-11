@@ -22,10 +22,19 @@ public class CourseModuleService {
 
 	}
 
+	public void save(CourseModule courseModule) {
+
+		courseModuleDAO.save(courseModule);
+	}
+
 	public void delete(Long courseId) {
 
 		courseModuleDAO.delete(courseId);
 	}
 
+	public void update(CourseModule courseModule) {
+
+		courseModuleDAO.update(courseModule);
+	}
 		
 }

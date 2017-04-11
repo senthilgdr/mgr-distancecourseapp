@@ -45,7 +45,14 @@
 									<td th:text="${coursemodule.createdDate}"></td>
 									<td th:text="${coursemodule.modifiedBy}"></td>
 									<td th:text="${coursemodule.modifiedDate}"></td>
-																
+									
+									<td><a class='btn btn-success' href="" th:href="@{/coursemodules/create}"><span
+											class='icon-pencil'></span>Add</a></td>
+											
+									<td><a class='btn btn-success'  href=""
+										th:href="@{/coursemodules/edit(id=${coursemodule.courseModuleId})}"><span
+											class='icon-pencil'></span>Edit</a></td>
+									
 											<td><a class='btn btn-danger'  href=""
 										th:href="@{/coursemodules/delete(id=${coursemodule.courseModuleId})}"><span
 											class='icon-pencil'></span>Delete</a></td>

@@ -57,7 +57,24 @@ public class CourseModuleDAO {
 		});
 		return list;
 	}
+	public void save(CourseModule courseModule) {
 
+		String sql = "insert into  course_module ( course_id,module_name,created_by,modified_by) values ( ?,?,?,?)";
+
+		int rows = jdbcTemplate.update(sql, courseModule.getCourse().getCourseId(),courseModule.getModuleName(),courseModule.getCreatedBy(),courseModule.getCreatedBy());
+
+		System.out.println("No of rows inserted:" + rows);
+	}
+
+	public void update(CourseModule courseModule) {
+
+		String sql = "update course_module set course_id=?,module_name=?,modified_by=? where course_module_id =? ";
+
+		Integer rows = jdbcTemplate.update(sql, courseModule.getCourse().getCourseId(),courseModule.getModuleName(),courseModule.getModifiedBy(),courseModule.getCourseModuleId());
+
+		System.out.println("No of rows modified:" + rows);
+
+	}
 	public void delete(Long courseId) {
 
 		String sql = "delete from course_module where course_module_id = ?";

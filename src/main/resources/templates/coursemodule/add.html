@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Add CourseModule</title>
+
+</head>
+<body>
+<div th:include="layout/header"></div>
+	<div id="msg"></div>
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-2">
+
+				<div class="portlet-title">
+					<div class="page-header">
+						<h4>Add CourseModule</h4>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<form id="addCourseModuleFrm" class="form-horizontal" role="form"
+						method="GET" action="../coursemodules/save">
+
+						<div class="form-group">
+							<label for="courseId">Course Name:</label>
+								<select name="courseId">
+													
+								<option th:each="c,iter  : ${COURSE_LIST}" th:value="${c.courseId}" th:text="${c.courseId} +'-' + ${c.courseName}"></option>
+								
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="moduleName">ModuleName:</label><input type="text"
+								class="form-control" name="moduleName" id="moduleName" />
+						</div>
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-success" id="addCourseModuleBtn">Submit</button>
+						</div>
+
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+</body>
+
+</html>

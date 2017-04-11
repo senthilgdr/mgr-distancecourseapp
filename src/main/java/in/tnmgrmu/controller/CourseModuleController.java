@@ -47,6 +47,39 @@ public class CourseModuleController {
 	}
 
 	
+	@GetMapping("/create")
+	public String create(ModelMap modelMap) {
+		List<Course> list = courseService.list();
+		modelMap.addAttribute("COURSE_LIST" , list );
+		return "coursemodule/add";
+	}
+
+	@GetMapping("/save")
+	public String save(@RequestParam("courseId") Long courseId,@RequestParam("moduleName") String moduleName, ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+			User user = (User) session.getAttribute("LOGGED_IN_USER");
+			// Step : Store in View
+			CourseModule courseModule = new CourseModule();
+			
+			Course course=new Course();
+			course.setCourseId(courseId);
+			courseModule.setModuleName(moduleName);
+			
+			courseModule.setCourse(course);
+			
+			courseModule.setCreatedBy(user.getId());
+						
+			courseModuleService.save(courseModule);
+
+			return "redirect:list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "add";
+		}
+	}
+
 	@GetMapping("/delete")
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
@@ -61,6 +94,55 @@ public class CourseModuleController {
 		}
 
 	}
+	
+	
+	@GetMapping("/edit")
+	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
+
+		try {
+
+			CourseModule courseModule = courseModuleService.findById(id);
+			modelMap.addAttribute("EDIT_COURSE_MODULE", courseModule);
+
+			return "coursemodule/edit";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "coursemodule/list";
+		}
+
+	}
+
+	@GetMapping("/update")
+	public String update(@RequestParam("id") Long id,@RequestParam("courseId") Long courseName,@RequestParam("moduleName") String moduleName, ModelMap modelMap,
+			HttpSession session) throws Exception {
+
+		try {
+			User user = (User) session.getAttribute("LOGGED_IN_USER");
+			
+			CourseModule courseModule = new CourseModule();
+			courseModule.setCourseModuleId(id);
+			courseModule.setModuleName(moduleName);
+			
+			Course course=new Course();
+			course.setCourseId(courseName);
+			
+			courseModule.setCourse(course);
+			
+			courseModule.setModifiedBy(user.getId());
+						
+			courseModuleService.update(courseModule);
+			
+			return "redirect:/coursemodules/list";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "edit";
+		}
+
+	}
+
 	
 	
 }
