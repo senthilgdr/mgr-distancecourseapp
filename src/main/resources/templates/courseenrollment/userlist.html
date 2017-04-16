@@ -23,6 +23,8 @@
 								<tr>
 									<th>S.NO</th>
 									<th>COURSE NAME</th>
+									<th>ENROLL DATE</th>
+									<th>Status </th>
 																		
 								</tr>
 							</thead>
@@ -31,7 +33,16 @@
 									
 								<tr th:each="courseenroll,iter  : ${USER_COURSES_LIST}">
 								<td th:text="${iter.index+1}"></td>
+								
 									<td th:text="${courseenroll.course.courseName}"></td>
+									<td th:text="${courseenroll.enrollDate}"></td>
+									
+										<td th:text="${courseenroll.completionDate ==null? 'In Progress' :'Completed'}"></td>
+																		
+									<td><a class='btn btn-success'  href=""
+										th:href="@{/usercoursevideos/list(courseId=${courseenroll.course.courseId})}"><span
+											class='icon-pencil'></span>View Course</a></td>
+											
 									<td><a class='btn btn-danger'  href=""
 										th:href="@{/api/coursesenrollments/cancelCourse(id=${courseenroll.id})}"><span
 											class='icon-pencil'></span>Cancel Course</a></td>

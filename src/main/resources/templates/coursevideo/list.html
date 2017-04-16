@@ -13,51 +13,18 @@
 				<div class="portlet-title">
 					<div class="page-header">
 						<h3 th:text="${COURSE_DETAIL.courseName}">CourseVideos</h3>
+						<h4 th:text="${COURSE_DETAIL.description}">Description</h4>
+						<a href="#" th:href="@{/api/coursesenrollments/courseEnroll(courseId=${COURSE_DETAIL.courseId})}" class="btn btn-primary btn-sm">Enroll Course</a>
 					</div>
 				</div>
 				<div class="portlet-body">
-				<!-- Course Name : <span th:text="${COURSE_DETAIL.courseName}"></span> <br/>
-				
-				Description: <span th:text="${COURSE_DETAIL.description}"></span> -->
-								
+												
 					<div class="table-responsive">
-						<table class="table table-bordered">
-
-							<thead>
-								<tr>
-									<th>S.No</th>
-									<th>Video</th>
-									<th>Status</th>								
-									
-								</tr>
-							</thead>
-							<tbody>
-
-									
-								<tr th:each="c,iter  : ${USER_COURSE_VIDEO_LIST}">
-								<td th:text="${iter.index+1}"></td>
-								<!-- <td th:text="${c}"></td>  -->
-								<td>
-								<iframe width="260" height="200" src="" th:src="${c.courseVideo.video.url}" frameborder="0" ></iframe> 
-								</td>
-								<!-- <td><input type="checkbox"/>Mark as Complete</td> -->								
-									<td th:if="${c.status=='PENDING'}">
-									
-									<a class='btn btn-primary'  href=""
-										th:href="@{/coursevideos/updateStatus(id=${c.ucvId},courseId=${c.courseVideo.course.courseId})}"><span
-											class='icon-pencil'></span>Mark as Complete</a></td>
-								
-							
-								<td th:if="${c.status=='COMPLETED'}" th:text="${c.status}">
-								<a class='btn btn-success'  href="#"><span
-											class='icon-pencil'></span></a>									
-								</td>
-								</tr>
-
-							</tbody>
-						</table>
-
-					</div>
+						<h3>List Of Videos ( <span th:text="${COURSE_VIDEO_LIST.size()}"></span> )</h3>		
+					<ul th:each="c,iter  : ${COURSE_VIDEO_LIST}">
+					<li th:text="${c.video.title}"></li>
+					</ul>
+				</div>
 				</div>
 				
 			</div>

@@ -41,46 +41,34 @@ public class CourseVideoDAO {
 		
 		return  courseVideo;
 	}
-
-	public List<UserCourseVideo> list(Long courseId,Long userId) {
-
-		/*String sql = "SELECT c.course_id AS course_id,c.course_name AS course_name,"
-				+ "c.description,v.video_id AS video_id,v.url , cv.id AS course_video_id "
-				+ "FROM course_videos cv,courses c,videos v WHERE cv.course_id=c.course_id AND cv.video_id=v.video_id"
-				+ " AND uc.course_video_id=cv.id AND cv.course_id=? AND uc.user_id=?";
-*/
-		String sql="SELECT c.course_id, c.course_name,c.description,v.url,uc.id,uc.status FROM "
-				+ "courses c,videos v, course_videos cv,user_course_videos uc WHERE c.course_id = cv.course_id "
-				+ "AND v.video_id  = cv.video_id AND uc.course_video_id=cv.id AND cv.course_id=? AND uc.user_id=?";
+	
+	public List<CourseVideo> list(Long courseId) {
+		
+		String sql="SELECT v.title FROM "
+				+ "videos v, course_videos cv WHERE"
+				+ " v.video_id  = cv.video_id  AND cv.course_id=? ";
 		
 		System.out.println(sql);
-		List<UserCourseVideo> list = jdbcTemplate.query(sql, new Object[] {courseId,userId}, (rs, rowNum) -> {
+		
+		List<CourseVideo> list = jdbcTemplate.query(sql, new Object[] {courseId}, (rs, rowNum) -> {
+			
 			CourseVideo  courseVideo = new  CourseVideo(); 
-			//courseVideo.setCvId(rs.getLong("course_video_id"));
-			 	
-			Course course=new Course();
-			course.setCourseId(rs.getLong("course_id"));
-			course.setCourseName(rs.getString("course_name"));
-			course.setDescription(rs.getString("description"));
-			
-			courseVideo.setCourse(course);
-			
+									
 			Video video=new Video();
-			/*video.setId(rs.getLong("video_id"));*/
-			video.setUrl(rs.getString("url"));
+			video.setTitle(rs.getString("title"));
 			courseVideo.setVideo(video);
 			
-			
-			UserCourseVideo cv=new UserCourseVideo();
-			cv.setUcvId(rs.getLong("id"));
-			cv.setStatus(rs.getString("status"));			
-			cv.setCourseVideo(courseVideo);
-			
-			
-			return  cv;
+			return  courseVideo;
 		});
 		return list;
 	}
+	public Long findTotalVideos(Long courseId) throws Exception {
+		 
+        Long videosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM COURSE_VIDEOS WHERE COURSE_ID=?",new Object[] {courseId},
+                Long.class);
+         
+        return videosCount;
+    }
 	
 	public void updateStatus(Long statusId) {
 

@@ -1,5 +1,6 @@
 package in.tnmgrmu.dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -52,6 +53,12 @@ public class CourseEnrollmentDAO {
 		CourseEnrollment courseEnroll = new CourseEnrollment();
 		courseEnroll.setId(rs.getLong("course_enrollment_id"));
 		courseEnroll.setActive(rs.getBoolean("active"));
+		courseEnroll.setEnrollDate(rs.getDate("enrollment_date").toLocalDate());
+		
+		Date completionDate = rs.getDate("completion_date");
+		if(completionDate !=null) {
+			courseEnroll.setCompletionDate(completionDate.toLocalDate());
+		}
 		
 		Course course=new Course();
 		course.setCourseId(rs.getLong("course_id"));
@@ -103,7 +110,7 @@ public class CourseEnrollmentDAO {
 	}
 	public List<CourseEnrollment> findByUserId(Long userId) {
 
-		String sql = "SELECT ce.id as course_enrollment_id,ce.course_id, c.course_name,ce.active FROM course_enrollment ce,courses c WHERE c.course_id = ce.course_id "+ 
+		String sql = "SELECT ce.id as course_enrollment_id,ce.course_id, c.course_name,ce.active,ce.enrollment_date,ce.completion_date FROM course_enrollment ce,courses c WHERE c.course_id = ce.course_id "+ 
 				"AND ce.user_id=? AND ce.active=1";
 		List<CourseEnrollment> courseEnroll = jdbcTemplate.query(sql, new Object[] { userId }, (rs, rowNo) -> {
 			return convert1(rs);

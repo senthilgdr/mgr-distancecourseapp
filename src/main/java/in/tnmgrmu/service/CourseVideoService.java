@@ -13,11 +13,9 @@ import in.tnmgrmu.model.UserCourseVideo;
 public class CourseVideoService {
 	@Autowired
 	private CourseVideoDAO courseVidoeDAO;
-
 	
-
-	public List<UserCourseVideo> list(Long courseId,Long userId) {
-		return courseVidoeDAO.list(courseId,userId);
+	public List<CourseVideo> list(Long courseId) {
+		return courseVidoeDAO.list(courseId);
 
 	}
 	public CourseVideo findById(Long id) { 

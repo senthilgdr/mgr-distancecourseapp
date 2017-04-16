@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import in.tnmgrmu.model.Course;
+import in.tnmgrmu.model.CourseVideo;
 import in.tnmgrmu.model.User;
 import in.tnmgrmu.model.UserCourseVideo;
 import in.tnmgrmu.service.CourseService;
@@ -29,8 +30,8 @@ public class CourseVideoController {
 	@Autowired
 	private VideoService videoService;
 
-	@GetMapping("/list")
-	public String list(@RequestParam("courseId") Long courseId, ModelMap modelMap, HttpSession session)
+	@GetMapping("/listCourse")
+	public String listCourse(@RequestParam("courseId") Long courseId, ModelMap modelMap, HttpSession session)
 			throws Exception {
 
 		try {
@@ -41,9 +42,9 @@ public class CourseVideoController {
 			Course course = courseService.findById(courseId);
 			modelMap.addAttribute("COURSE_DETAIL" , course );
 			
-			List<UserCourseVideo> list = courseVideoService.list(courseId,emp.getId());
+			List<CourseVideo> list = courseVideoService.list(courseId);
 			System.out.println("list:" + list);
-			modelMap.addAttribute("USER_COURSE_VIDEO_LIST", list);
+			modelMap.addAttribute("COURSE_VIDEO_LIST", list);
 
 			return "coursevideo/list";
 
@@ -54,22 +55,4 @@ public class CourseVideoController {
 		}
 	}
 	
-	@GetMapping("/updateStatus")
-	public String updateStatus(@RequestParam("id") Long id,@RequestParam("courseId") Long courseId, ModelMap modelMap,
-			HttpSession session) throws Exception {
-
-		System.out.println("Update Status-> id=" + id );
-		try {
-			
-	    	courseVideoService.updateStatus(id);
-
-			return "redirect:/coursevideos/list?courseId="+ courseId;
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "coursevideo/list?courseId=" + courseId;
-		}
-
-	}
-
 }
