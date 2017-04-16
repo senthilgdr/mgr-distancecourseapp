@@ -31,5 +31,15 @@ public class CourseEnrollmentService {
 
 		courseEnrollmentDAO.delete(enrollmentId);
 	}
+	public List<CourseEnrollment> findByUserId(Long userId) {
+
+		return courseEnrollmentDAO.findByUserId(userId);
+	}
+
+	public List<CourseEnrollment> findByCourseId(Long courseId) {
+
+		return courseEnrollmentDAO.findByCourseId(courseId);
+	}
+
 
 }

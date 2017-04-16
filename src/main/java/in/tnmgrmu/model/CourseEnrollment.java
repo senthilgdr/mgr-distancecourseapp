@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CourseEnrollment {
 
-	private Long courseId;
+	private Long id;
 	private User user;
 	private Course course;
 	private boolean active;

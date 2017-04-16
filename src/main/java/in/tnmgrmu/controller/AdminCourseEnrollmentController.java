@@ -19,16 +19,41 @@ import in.tnmgrmu.service.CourseService;
 
 
 @Controller
-@RequestMapping("api/coursesenrollments")
-public class CourseEnrollmentController {
+@RequestMapping("coursesenrollments")
+public class AdminCourseEnrollmentController {
 
 	@Autowired
 	private CourseEnrollmentService courseEnrollmentService;
 	@Autowired
 	private CourseService courseService;
+
+	@GetMapping("/list")
+	public String list(ModelMap modelMap, HttpSession session) throws Exception {
+
+		try {
+
+			List<CourseEnrollment> list = courseEnrollmentService.list();
+			System.out.println("list:" + list);
+			modelMap.addAttribute("COURSE_ENROLLMENT_LIST", list);
+
+			return "courseenrollment/list";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home";
+		}
+	}
+
+	@GetMapping("/create")
+	public String create(ModelMap modelMap) {
+		List<Course> list = courseService.list();
+		modelMap.addAttribute("COURSE_LIST" , list );
+		return "courseenrollment/add";
+	}
 	
 
-	@GetMapping("/courseEnroll")
+	/*@GetMapping("/courseEnroll")
 	public String courseEnroll(@RequestParam("courseId") Long courseId, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
@@ -45,15 +70,15 @@ public class CourseEnrollmentController {
 			
 			courseEnrollmentService.courseEnroll(courseEnroll);
 
-			return "redirect:/api/coursesenrollments/myCourses";
+			return "redirect:list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "add";
 		}
-	}	
+	}	*/
 	
-	@GetMapping("/cancelCourse")
+	/*@GetMapping("/cancelCourse")
 	public String cancelCourse(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
@@ -67,10 +92,23 @@ public class CourseEnrollmentController {
 		}
 
 	}
-	
-	
-	@GetMapping("/myCourses")
-	public String myCourses(ModelMap modelMap, HttpSession session) throws Exception {
+	*/
+	@GetMapping("/delete")
+	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
+
+		try {
+			courseEnrollmentService.delete(Long.valueOf(id));
+
+			return "redirect:/myCourses";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "courseenrollment/list";
+		}
+
+	}
+	/*@GetMapping("/myCourses")
+	public String myUsers(ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
@@ -86,8 +124,7 @@ public class CourseEnrollmentController {
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "/home";
 		}
-	}
-	
+	}*/
 	@GetMapping("/viewcourses")
 	public String myCourses(@RequestParam("courseEnrollId") Long courseEnrollId,ModelMap modelMap, HttpSession session) throws Exception {
 

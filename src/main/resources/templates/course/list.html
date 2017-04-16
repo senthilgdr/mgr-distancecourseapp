@@ -6,7 +6,7 @@
 <title>Courses</title>
 </head>
 <body>
-<div th:include="layout/header"></div>
+	<div th:include="layout/header"></div>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-18">
@@ -16,7 +16,8 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="table-responsive">
+					<!-- 					<div class="table-responsive">
+
 						<table class="table table-bordered">
 
 							<thead>
@@ -29,15 +30,15 @@
 									<th>CREATED DATE</th>
 									<th>MODIFIED BY</th>
 									<th>MODIFIED DATE</th>
-									
-									
+
+
 								</tr>
 							</thead>
 							<tbody>
 
-									
+
 								<tr th:each="course,iter  : ${COURSE_LIST}">
-								<td th:text="${iter.index+1}"></td>
+									<td th:text="${iter.index+1}"></td>
 									<td th:text="${course.courseName}"></td>
 									<td th:text="${course.description}"></td>
 									<td th:text="${course.active}"></td>
@@ -45,35 +46,50 @@
 									<td th:text="${course.createdDate}"></td>
 									<td th:text="${course.modifiedBy}"></td>
 									<td th:text="${course.modifiedDate}"></td>
-									
-									<td><a class='btn btn-success' href="" th:href="@{/courses/create}"><span
-											class='icon-pencil'></span>Add</a></td>
-																				
-									<td><a class='btn btn-success'  href=""
+
+									<td><a class='btn btn-success' href=""
+										th:href="@{/courses/create}"><span class='icon-pencil'></span>Add</a></td>
+
+									<td><a class='btn btn-success' href=""
 										th:href="@{/courses/edit(id=${course.courseId})}"><span
 											class='icon-pencil'></span>Edit</a></td>
-									
-											<td><a class='btn btn-danger'  href=""
+
+									<td><a class='btn btn-danger' href=""
 										th:href="@{/courses/courseDisable(id=${course.courseId})}"><span
 											class='icon-pencil'></span>Disable</a></td>
-													
-									<td><a class='btn btn-success'  href=""
+
+									<td><a class='btn btn-success' href=""
 										th:href="@{/courses/courseEnable(id=${course.courseId})}"><span
 											class='icon-pencil'></span>Enable</a></td>
+
+									<td><a class='btn btn-success' href=""
+										th:href="@{/coursesenrollments/courseEnroll(courseId=${course.courseId})}"><span
+											class='icon-pencil'></span>Enroll</a></td>
 
 								</tr>
 
 							</tbody>
 						</table>
+ </div>
+ -->
 
+					<div class="row">
+						<div class="col-sm-6" th:each="course,iter  : ${COURSE_LIST}">
+							<div class="card">
+								<div class="card-block">
+									<h3 class="card-title" th:text="${course.courseName}"></h3>
+									<p class="card-text" th:text="${course.description}"></p>
+								<a href="#" th:href="@{/api/coursesenrollments/courseEnroll(courseId=${course.courseId})}" class="btn btn-primary btn-sm">Enroll Course</a>
+								<a href="#" th:href="@{/coursevideos/list(courseId=${course.courseId})}" class="btn btn-primary btn-sm">View Courses</a>
+							</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				
-			</div>
 
+				</div>
+
+			</div>
 		</div>
 	</div>
-
-
 </body>
 </html>

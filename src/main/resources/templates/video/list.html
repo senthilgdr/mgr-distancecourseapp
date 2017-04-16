@@ -35,8 +35,12 @@
 									<td th:text="${video.title}"></td>
 									<td th:text="${video.url}"></td>
 									
-									<td><a class='btn btn-success' href="" th:href="@{/videos/create}"><span
-											class='icon-pencil'></span>Add</a></td>
+									<td>
+									<div>
+						<iframe width="300" height="200" src="" th:src="${video.url}" frameborder="0" ></iframe>
+						</div>
+									</td>
+									
 									<td><a class='btn btn-success'  href=""
 										th:href="@{/videos/edit(id=${video.id})}"><span
 											class='icon-pencil'></span>Edit</a></td>
@@ -49,6 +53,9 @@
 							</tbody>
 						</table>
 
+<br/>
+<a class='btn btn-success' href="" th:href="@{/videos/create}"><span
+											class='icon-pencil'></span>Add</a>
 					</div>
 				</div>
 				
