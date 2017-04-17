@@ -49,7 +49,7 @@ public class CourseEnrollmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "add";
+			return "../coursevideos/listCourse";
 		}
 	}	
 	
@@ -84,7 +84,7 @@ public class CourseEnrollmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "/home";
+			return "/coursevideos/listCourse";
 		}
 	}
 	

@@ -44,7 +44,11 @@
 											th:value="${EDIT_COURSE.description}" name="description"
 											id="description" />
 									</div>
-
+									<div class="form-group">
+										<label for="category">Category:</label><input
+											type="text" class="form-control" name="category"
+											th:value="${EDIT_COURSE.category}" id="category" />
+</div>
 									<div class="form-group">
 										<button type="submit" class="btn btn-success"
 											id="updateCourseBtn">Submit</button>

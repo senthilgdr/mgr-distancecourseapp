@@ -21,12 +21,18 @@ public class CourseService {
 		return courseDAO.list();
 
 	}
+	public List<Course> list(String category) {
+		return courseDAO.list(category);
+
+	}
 
 	public void save(Course course) {
 
 		courseDAO.save(course);
 	}
-	
+	public  List<String> findAllCategory(){
+		return courseDAO.findAllCategory();
+	}
 	public void delete(Long courseId) {
 
 		courseDAO.delete(courseId);

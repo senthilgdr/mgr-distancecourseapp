@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Courses</title>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
+
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-10">
+							<div class="portlet-title">
+								<div class="page-header">
+									<h3>All Courses</h3>
+								</div>
+							</div>
+							<div class="portlet-body">
+							<form id="addCategoryFrm" class="form-horizontal" role="form"
+									method="GET" action="../courses/listCategory">
+							Select Category: 
+							<select  class="selectpicker" name="category">
+							<option>All </option>
+							<option th:each="c,iter  : ${CATEGORY_LIST}"
+												th:value="${c}"
+												th:text="${c}" th:selected="${(c==SELECTED_CATEGORY)}"></option>
+							
+							</select>
+							<button type="submit" class="btn btn-primary"
+											id="addCategoryBtn">Search</button>
+							</form>
+							
+							<br/>
+								<div class="table-responsive">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>S.NO</th>
+												<th>COURSE NAME</th>
+												<th>CATEGORY</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+
+
+											<tr th:each="course,iter  : ${COURSE_LIST}">
+												<td th:text="${iter.index+1}"></td>
+												<td th:text="${course.courseName}"></td>
+												<td th:text="${course.category}"></td>
+												
+												<td><a class='btn btn-success' href=""
+													th:href="@{/courses/create}"><span
+														class='icon-pencil'></span>Add</a></td>
+
+												<td><a class='btn btn-success' href=""
+													th:href="@{/courses/edit(id=${course.courseId})}"><span
+														class='icon-pencil'></span>Edit</a></td>
+
+												<td><a class='btn btn-danger' href=""
+													th:href="@{/courses/delete(id=${course.courseId})}"><span
+														class='icon-pencil'></span>Delete</a></td>
+
+											</tr>
+
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	
+</body>
+</html>

@@ -19,7 +19,7 @@ public class CourseDAO {
 
 	public Course findById(Long id) {
 
-		String sql = "select  course_id,course_name,description,active,created_by,created_at,modified_by,modified_at from courses where course_id= ?";
+		String sql = "select  course_id,course_name,description,active,created_by,created_at,modified_by,modified_at,category from courses where course_id= ?";
 		Course course = jdbcTemplate.queryForObject(sql, new Object[] { id }, (rs, rowNo) -> {
 			return convert(rs);
 		});
@@ -32,6 +32,7 @@ public class CourseDAO {
 		course.setCourseId(rs.getLong("course_id"));
 		course.setCourseName(rs.getString("course_name"));
 		course.setDescription(rs.getString("description"));	
+		course.setCategory(rs.getString("category"));	
 		course.setActive(rs.getBoolean("active"));
 		course.setCreatedBy(rs.getLong("created_by"));
 		course.setCreatedDate(rs.getDate("created_at").toLocalDate());
@@ -42,27 +43,44 @@ public class CourseDAO {
 
 	public List<Course> list() {
 
-		String sql = "select  course_id,course_name,description,active,created_by,created_at,modified_by,modified_at from courses";
+		String sql = "select  course_id,course_name,description,active,created_by,created_at,modified_by,modified_at,category from courses";
 
 		List<Course> list = jdbcTemplate.query(sql, new Object[] {}, (rs, rowNum) -> {
 			return convert(rs);
 		});
 		return list;
 	}
+	public List<String> findAllCategory() {
+
+		String sql = "SELECT DISTINCT category FROM courses";
+
+		List<String> list = jdbcTemplate.queryForList(sql, new Object[] {}, String.class);
+		return list;
+	}
+
+	public List<Course> list(String categroy) {
+
+		String sql = "select  course_id,course_name,description,active,created_by,created_at,modified_by,modified_at,category from courses where category=?";
+
+		List<Course> list = jdbcTemplate.query(sql, new Object[] {categroy}, (rs, rowNum) -> {
+			return convert(rs);
+		});
+		return list;
+	}
 	public void save(Course course) {
 
-		String sql = "insert into courses ( course_name,description,created_by,modified_by) values ( ?,?,?,?)";
+		String sql = "insert into courses ( course_name,description,created_by,modified_by,category) values ( ?,?,?,?,?)";
 
-		int rows = jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(),course.getCreatedBy(),course.getCreatedBy());
+		int rows = jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(),course.getCreatedBy(),course.getCreatedBy(),course.getCategory());
 
 		System.out.println("No of rows inserted:" + rows);
 	}
 
 	public void update(Course course) {
 
-		String sql = "update courses set course_name=?, description= ?,modified_by=? where course_id =? ";
+		String sql = "update courses set course_name=?, description= ?,modified_by=?, category=? where course_id =? ";
 
-		Integer rows = jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(),course.getModifiedBy(),course.getCourseId());
+		Integer rows = jdbcTemplate.update(sql, course.getCourseName(),course.getDescription(),course.getModifiedBy(),course.getCategory(),course.getCourseId());
 
 		System.out.println("No of rows modified:" + rows);
 

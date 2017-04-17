@@ -15,14 +15,13 @@ import in.tnmgrmu.model.Course;
 import in.tnmgrmu.model.User;
 import in.tnmgrmu.service.CourseService;
 
-
 @Controller
 @RequestMapping("courses")
 public class CourseController {
 
 	@Autowired
 	private CourseService courseService;
-	
+
 	@GetMapping("/list")
 	public String list(ModelMap modelMap, HttpSession session) throws Exception {
 
@@ -40,13 +39,44 @@ public class CourseController {
 			return "/home";
 		}
 	}
+
+	@GetMapping("/listCategory")
+	public String listCategory(@RequestParam(value = "category", required = false) String category, ModelMap modelMap,
+			HttpSession session) throws Exception {
+
+		try {
+			List<String> str = courseService.findAllCategory();
+			System.out.println("Category:" + str);
+			modelMap.addAttribute("CATEGORY_LIST", str);
+
+			List<Course> list = null;
+			if ( category == null || category.equals("All")){
+				list = courseService.list();
+			}else{
+				
+				list=courseService.list(category);
+			}
+			modelMap.addAttribute("SELECTED_CATEGORY", category);
+			System.out.println("list:" + list);
+			modelMap.addAttribute("COURSE_LIST", list);
+
+			return "course/listcategory";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/home";
+		}
+	}
+
 	@GetMapping("/create")
 	public String create() {
 		return "course/add";
 	}
 
 	@GetMapping("/save")
-	public String save(@RequestParam("courseName") String courseName,@RequestParam("description") String description, ModelMap modelMap, HttpSession session) throws Exception {
+	public String save(@RequestParam("courseName") String courseName, @RequestParam("description") String description,
+			@RequestParam("category") String category, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
@@ -54,12 +84,13 @@ public class CourseController {
 			Course course = new Course();
 			course.setCourseName(courseName);
 			course.setDescription(description);
-			
+			course.setCategory(category);
+
 			course.setCreatedBy(user.getId());
-			
+
 			courseService.save(course);
 
-			return "redirect:list";
+			return "redirect:listCategory";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
@@ -81,11 +112,12 @@ public class CourseController {
 		}
 
 	}
+
 	@GetMapping("/courseEnable")
 	public String courseEnable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-			Course course=new Course();
+			Course course = new Course();
 			course.setCourseId(id);
 			courseService.courseEnable(course);
 
@@ -97,11 +129,12 @@ public class CourseController {
 		}
 
 	}
+
 	@GetMapping("/courseDisable")
 	public String courseDisable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-			Course course=new Course();
+			Course course = new Course();
 			course.setCourseId(id);
 			courseService.courseDisable(course);
 
@@ -113,7 +146,7 @@ public class CourseController {
 		}
 
 	}
-	
+
 	@GetMapping("/edit")
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
@@ -133,8 +166,9 @@ public class CourseController {
 	}
 
 	@GetMapping("/update")
-	public String update(@RequestParam("id") Long id,@RequestParam("courseName") String courseName,@RequestParam("description") String description, ModelMap modelMap,
-			HttpSession session) throws Exception {
+	public String update(@RequestParam("id") Long id, @RequestParam("courseName") String courseName,
+			@RequestParam("description") String description, @RequestParam("category") String category,
+			ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
@@ -142,12 +176,13 @@ public class CourseController {
 			course.setCourseId(id);
 			course.setCourseName(courseName);
 			course.setDescription(description);
-			
+			course.setCategory(category);
+
 			course.setModifiedBy(user.getId());
 
 			courseService.update(course);
 
-			return "redirect:/courses/list";
+			return "redirect:/courses/listCategory";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());

@@ -51,7 +51,8 @@ public class CourseVideoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "/home";
+			System.out.println("errorMessage"+e.getMessage());
+			return "../course/list";
 		}
 	}
 	
