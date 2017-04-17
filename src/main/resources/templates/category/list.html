@@ -6,64 +6,76 @@
 <title>Categories</title>
 </head>
 <body>
-<div th:include="layout/header"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-14">
-				<div class="portlet-title">
-					<div class="page-header">
-						<h3>Categories</h3>
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
+
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-10">
+							<div class="portlet-title">
+								<div class="page-header">
+									<h3>Categories</h3>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="table-responsive">
+									<table class="table table-bordered">
+
+										<thead>
+											<tr>
+												<th>S.NO</th>
+												<th>CATEGORY NAME</th>
+												<th>ACTIVE</th>
+												<th>CREATED DATE</th>
+												<th>MODIFIED DATE</th>
+
+
+											</tr>
+										</thead>
+										<tbody>
+
+
+											<tr th:each="category,iter  : ${CATEGORY_LIST}">
+												<td th:text="${iter.index+1}"></td>
+												<td th:text="${category.categoryName}"></td>
+												<td th:text="${category.active}"></td>
+												<td th:text="${category.createdDate}"></td>
+												<td th:text="${category.modifiedDate}"></td>
+
+												<td><a class='btn btn-success' href=""
+													th:href="@{/categories/create}"><span
+														class='icon-pencil'></span>Add</a></td>
+
+												<td><a class='btn btn-success' href=""
+													th:href="@{/categories/edit(id=${category.categoryId})}"><span
+														class='icon-pencil'></span>Edit</a></td>
+
+												<td><a class='btn btn-danger' href=""
+													th:href="@{/categories/delete(id=${category.categoryId})}"><span
+														class='icon-pencil'></span>Delete</a></td>
+
+											</tr>
+
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</div>
+
 					</div>
 				</div>
-				<div class="portlet-body">
-					<div class="table-responsive">
-						<table class="table table-bordered">
 
-							<thead>
-								<tr>
-									<th>S.NO</th>
-									<th>CATEGORY NAME</th>
-									<th>ACTIVE</th>
-									<th>CREATED DATE</th>
-									<th>MODIFIED DATE</th>
-									
-									
-								</tr>
-							</thead>
-							<tbody>
-
-									
-								<tr th:each="category,iter  : ${CATEGORY_LIST}">
-								<td th:text="${iter.index+1}"></td>
-									<td th:text="${category.categoryName}"></td>
-									<td th:text="${category.active}"></td>
-									<td th:text="${category.createdDate}"></td>
-									<td th:text="${category.modifiedDate}"></td>
-									
-									<td><a class='btn btn-success' href="" th:href="@{/categories/create}"><span
-											class='icon-pencil'></span>Add</a></td>
-											
-									<td><a class='btn btn-success'  href=""
-										th:href="@{/categories/edit(id=${category.categoryId})}"><span
-											class='icon-pencil'></span>Edit</a></td>
-											
-									<td><a class='btn btn-danger'  href=""
-										th:href="@{/categories/delete(id=${category.categoryId})}"><span
-											class='icon-pencil'></span>Delete</a></td>
-
-								</tr>
-
-							</tbody>
-						</table>
-
-					</div>
-				</div>
-				
 			</div>
 
 		</div>
+
 	</div>
-
-
+	
 </body>
 </html>

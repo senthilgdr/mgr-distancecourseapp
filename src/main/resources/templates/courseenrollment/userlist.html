@@ -6,60 +6,70 @@
 <title>My Courses</title>
 </head>
 <body>
-<div th:include="layout/header"></div>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-18">
-				<div class="portlet-title">
-					<div class="page-header">
-						<h3>My Courses</h3>
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
+
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
+
+					<div class="row">
+						<div class="col-md-10">
+							<div class="portlet-title">
+								<div class="page-header">
+									<h3>My Courses</h3>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<div class="table-responsive">
+									<table class="table table-bordered">
+
+										<thead>
+											<tr>
+												<th>S.NO</th>
+												<th>COURSE NAME</th>
+												<th>ENROLL DATE</th>
+												<th>Status</th>
+
+											</tr>
+										</thead>
+										<tbody>
+
+
+											<tr th:each="courseenroll,iter  : ${USER_COURSES_LIST}">
+												<td th:text="${iter.index+1}"></td>
+
+												<td th:text="${courseenroll.course.courseName}"></td>
+												<td th:text="${courseenroll.enrollDate}"></td>
+
+												<td
+													th:text="${courseenroll.completionDate ==null? 'In Progress' :'Completed'}"></td>
+
+												<td><a class='btn btn-success' href=""
+													th:href="@{/usercoursevideos/list(courseId=${courseenroll.course.courseId})}"><span
+														class='icon-pencil'></span>View Course</a></td>
+
+												<td><a class='btn btn-danger' href=""
+													th:href="@{/api/coursesenrollments/cancelCourse(id=${courseenroll.id})}"><span
+														class='icon-pencil'></span>Cancel Course</a></td>
+
+											</tr>
+
+										</tbody>
+									</table>
+
+								</div>
+							</div>
+
+						</div>
+
 					</div>
 				</div>
-				<div class="portlet-body">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-
-							<thead>
-								<tr>
-									<th>S.NO</th>
-									<th>COURSE NAME</th>
-									<th>ENROLL DATE</th>
-									<th>Status </th>
-																		
-								</tr>
-							</thead>
-							<tbody>
-
-									
-								<tr th:each="courseenroll,iter  : ${USER_COURSES_LIST}">
-								<td th:text="${iter.index+1}"></td>
-								
-									<td th:text="${courseenroll.course.courseName}"></td>
-									<td th:text="${courseenroll.enrollDate}"></td>
-									
-										<td th:text="${courseenroll.completionDate ==null? 'In Progress' :'Completed'}"></td>
-																		
-									<td><a class='btn btn-success'  href=""
-										th:href="@{/usercoursevideos/list(courseId=${courseenroll.course.courseId})}"><span
-											class='icon-pencil'></span>View Course</a></td>
-											
-									<td><a class='btn btn-danger'  href=""
-										th:href="@{/api/coursesenrollments/cancelCourse(id=${courseenroll.id})}"><span
-											class='icon-pencil'></span>Cancel Course</a></td>
-									
-								</tr>
-
-							</tbody>
-						</table>
-
-					</div>
-				</div>
-				
 			</div>
 
 		</div>
 	</div>
-
 
 </body>
 </html>

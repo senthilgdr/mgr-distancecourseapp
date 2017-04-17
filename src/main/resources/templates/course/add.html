@@ -6,46 +6,55 @@
 
 </head>
 <body>
-<div th:include="layout/header"></div>
-	<div id="msg"></div>
-	<div class="container">
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
 
-		<div class="row">
-			<div class="col-md-2">
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
 
-				<div class="portlet-title">
-					<div class="page-header">
-						<h4>AddCourse</h4>
+					<div class="row">
+						<div class="col-md-2">
+
+							<div class="portlet-title">
+								<div class="page-header">
+									<h4>AddCourse</h4>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<form id="addCourseFrm" class="form-horizontal" role="form"
+									method="GET" action="../courses/save">
+
+									<div class="form-group">
+										<label for="courseName">Course Name:</label><input type="text"
+											class="form-control" name="courseName" required="required"
+											autofocus="autofocus" id="courseName" />
+									</div>
+
+									<div class="form-group">
+										<label for="description">Description:</label><input
+											type="text" class="form-control" name="description"
+											id="description" />
+									</div>
+
+									<div class="form-group">
+										<button type="submit" class="btn btn-success"
+											id="addCourseBtn">Submit</button>
+									</div>
+
+								</form>
+
+							</div>
+
+						</div>
+
 					</div>
 				</div>
-				<div class="portlet-body">
-					<form id="addCourseFrm" class="form-horizontal" role="form"
-						method="GET" action="../courses/save">
-
-						<div class="form-group">
-							<label for="courseName">Course Name:</label><input type="text"
-								class="form-control" name="courseName" required="required" autofocus="autofocus"
-								id="courseName"/>
-						</div>
-
-						<div class="form-group">
-							<label for="description">Description:</label><input type="text"
-								class="form-control" name="description" id="description" />
-						</div>
-
-						<div class="form-group">
-							<button type="submit" class="btn btn-success" id="addCourseBtn">Submit</button>
-						</div>
-
-					</form>
-
-				</div>
-
 			</div>
 
 		</div>
 	</div>
-
 
 </body>
 

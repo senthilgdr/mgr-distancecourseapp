@@ -1,0 +1,100 @@
+
+<link rel="stylesheet" href="../../assets/css/bootstrap.min.css"
+	th:href="@{/assets/css/bootstrap.min.css}" />
+<link rel="stylesheet" href="../../assets/css/bootstrap_custom_nav_bar.css" />
+<link rel="stylesheet" href="../../assets/css/style.css"
+	th:href="@{/assets/css/style.css}" />
+<link rel="stylesheet" href="../../assets/css/mdb.min.css"
+	th:href="@{/assets/css/mdb.min.css}" />
+	
+	<link href="../../assets/css/animate.min.css" th:href="@{/assets/css/animate.min.css}" rel="stylesheet"/>
+
+   
+    <link href="../../assets/css/light-bootstrap-dashboard.css" th:href="@{/assets/css/light-bootstrap-dashboard.css}" rel="stylesheet"/>
+
+
+    <link href="../../assets/css/demo.css"  th:href="@{/assets/css/light-bootstrap-dashboard.css}" rel="stylesheet" />    
+    
+
+<script src="../../assets/js/jquery.min.js"
+	th:href="@{../assets/js/jquery.min.js}"></script>
+<script src="../../assets/js/bootstrap.min.js"
+	th:href="@{/assets/js/bootstrap.min.js}"></script>
+<script src="../../assets/js/mdb.min.js" th:href="@{/assets/js/mdb.min.js}"></script>
+<script src="../../assets/js/tether.min.js"
+	th:href="@{/assets/js/tether.min.js}"></script>
+
+<nav class="navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="index.html" th:href="@{/}"><span
+				class="glyphicon glyphicon-home">MGR-MedicalUniversity</span></a>
+		</div>
+
+		<ul class="nav navbar-nav">
+
+
+			<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Courses <span class="caret"></span></a>
+				<ul class="dropdown-menu">				
+							<li><a href="../courses/list" th:href="@{/courses/list}">All Courses	</a></li>										
+
+				</ul></li>				
+
+			<li><a  href="../api/coursesenrollments/myCourses"
+						th:href="@{/api/coursesenrollments/myCourses}">My Courses 
+				</a></li>
+				
+				<li class="dropdown"><a class="dropdown-toggle"
+				data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
+				<ul class="dropdown-menu">
+				<li><a href="../users/list" th:href="@{/users/list}">All
+							Users</a></li>
+					<li><a href="../roles/list" th:href="@{/roles/list}">All
+							Roles</a></li>
+					<li><a href="../courses/list" th:href="@{/courses/list}">All Admin
+							Courses</a></li>						
+					<li><a href="../categories/list" th:href="@{/categories/list}">All
+							Categories</a></li>
+					<li><a href="../coursecategories/list"
+						th:href="@{/coursecategories/list}">All CourseCategories</a></li>
+					
+					<li><a href="../coursemodules/list"
+						th:href="@{/coursemodules/list}">All CourseModules</a></li>
+						<li><a href="../videos/list" th:href="@{/videos/list}">All
+							Videos</a></li>	
+				</ul></li>
+				
+		</ul>
+		
+				
+		<div class="navbar-header pull-right">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown" th:if="${session.LOGGED_IN_USER != null}">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome
+						<span class="glyphicon glyphicon-user"
+						th:if="@{session.LOGGED_IN_USER !=null}"
+						th:text="${session.LOGGED_IN_USER.name}"></span>!!!
+				</a>
+
+					<ul class="dropdown-menu">
+						<li><a href="../users/MyProfile"
+							th:href="@{/users/myProfile}">My Profile </a></li>
+						<li><a href="../auth/Logout" th:href="@{/auth/Logout}">Sign
+								Out ! </a></li>
+						<li><a href="../users/changepassword"
+							th:href="@{/users/changepassword}">Change Password ! </a></li>
+					</ul>
+				</li>
+			</ul>
+
+
+		</div>
+
+	</div>
+</nav>
+
+<div class="container">
+	<div class="row"></div>
+</div>

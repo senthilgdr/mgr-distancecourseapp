@@ -44,7 +44,7 @@ public class AuthController {
 		return "user/register";
 	}
 	
-	@GetMapping("/register")
+	@PostMapping("/register")
 	public String register(@RequestParam("name") String name,@RequestParam("password") String password,
 			 @RequestParam("role") Long role,
 			@RequestParam("email") String email, 

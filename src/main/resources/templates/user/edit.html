@@ -6,64 +6,73 @@
 
 </head>
 <body>
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
 
-	<div th:include="layout/header"></div>
-	<div id="msg"></div>
-	<div class="container">
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
 
-		<div class="row">
-			<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-4">
 
-				<div class="portlet-title">
-					<div class="page-header">
-						<h4>Update Employee</h4>
+							<div class="portlet-title">
+								<div class="page-header">
+									<h4>Update Employee</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<div class="portlet-body" th:with="user=${EDIT_USER}">
+
+
+								<form id="updateUserFrm" class="form-horizontal" role="form"
+									method="GET" action="../users/update">
+
+									<input type="hidden" name="id" th:value="${user.id}" />
+
+									<div class="form-group">
+										<label for="name">NAME:</label><input type="text"
+											class="form-control" name="name" required="required"
+											id="name" th:value="${user.name}" />
+									</div>
+									<div class="form-group">
+										<label for="role">ROLE:</label><select name="role"
+											class="form-control">
+											<option th:value="${user.role.id}"
+												th:text="${user.role.name}"></option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="mailId">E-MAILID:</label><input type="email"
+											class="form-control" name="email" th:value="${user.email}"
+											id="email" readonly="readonly" />
+									</div>
+
+									<div class="form-group">
+										<label for="mobileNo">MOBILE NO:</label><input type="text"
+											class="form-control" name="mobileNo" required="required"
+											id="mobileNo" th:value="${user.mobileNo}" />
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-success"
+											id="updateUserBtn">Update</button>
+									</div>
+								</form>
+							</div>
+						</div>
+
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="portlet-body" th:with="user=${EDIT_USER}">
 
-
-					<form id="updateUserFrm" class="form-horizontal" role="form"
-						method="GET" action="../users/update">
-
-						<input type="hidden" name="id" th:value="${user.id}"/>
-
-							<div class="form-group">
-							<label for="name">NAME:</label><input type="text"
-								class="form-control" name="name" required="required" id="name"
-								th:value="${user.name}"/>
-						</div>
-						<div class="form-group">
-							<label for="role">ROLE:</label><select name="role" class="form-control">
-								<option  th:value="${user.role.id}" th:text="${user.role.name}"> </option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="mailId">E-MAILID:</label><input type="email"
-								class="form-control" name="email"
-								th:value="${user.email}" id="email" readonly="readonly"/>
-						</div>
-
-						<div class="form-group">
-							<label for="mobileNo">MOBILE NO:</label><input type="text"
-								class="form-control" name="mobileNo" required="required" id="mobileNo"
-								th:value="${user.mobileNo}"/>
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-success"
-								id="updateUserBtn">Update</button>
-						</div>
-					</form>
-				</div>
 			</div>
 
 		</div>
+
 	</div>
-
-
 </body>
 
 </html>

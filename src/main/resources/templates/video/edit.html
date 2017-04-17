@@ -6,54 +6,64 @@
 
 </head>
 <body>
-<div th:include="layout/header"></div>
-	<div id="msg"></div>
-	<div class="container">
+	<div class="wrapper">
+		<div th:include="layout/sidebar"></div>
+		<div class="main-panel">
 
-		<div class="row">
-			<div class="col-md-4">
+			<div th:include="layout/header"></div>
+			<div class="content">
+				<div class="container-fluid">
 
-				<div class="portlet-title">
-					<div class="page-header">
-						<h4>Update Video</h4>
+					<div class="row">
+						<div class="col-md-4">
+
+							<div class="portlet-title">
+								<div class="page-header">
+									<h4>Update Video</h4>
+								</div>
+							</div>
+							<div class="portlet-body">
+								<form id="updateVideoFrm" class="form-horizontal" role="form"
+									method="GET" action="../videos/update">
+									<div class="form-group">
+										<input type="hidden" class="form-control"
+											th:value="${EDIT_VIDEO.id}" name="id" required="required"
+											readonly="readonly" id="id" />
+									</div>
+
+									<div class="form-group">
+										<label for="title">TITLE:</label><input type="text"
+											class="form-control" th:value="${EDIT_VIDEO.title}"
+											name="title" required="required" id="title" />
+									</div>
+									<div class="form-group">
+										<label for="url">URL:</label><input type="url"
+											class="form-control" th:value="${EDIT_VIDEO.url}" name="url"
+											required="required" id="url" />
+									</div>
+
+									<div>
+										<iframe width="560" height="315" src=""
+											th:src="${EDIT_VIDEO.url}" frameborder="0"></iframe>
+									</div>
+									<div class="form-group">
+										<button type="submit" class="btn btn-success"
+											id="updateVideoBtn">Submit</button>
+									</div>
+
+								</form>
+
+							</div>
+
+						</div>
+
 					</div>
 				</div>
-				<div class="portlet-body">
-					<form id="updateVideoFrm" class="form-horizontal" role="form"
-						method="GET" action="../videos/update">
-						<div class="form-group">
-							<input type="hidden"
-								class="form-control" th:value="${EDIT_VIDEO.id}" name="id" required="required"  readonly="readonly"
-								id="id"/>
-						</div>
-
-						<div class="form-group">
-							<label for="title">TITLE:</label><input type="text"
-								class="form-control" th:value="${EDIT_VIDEO.title}" name="title" required="required" 
-								id="title"/>
-						</div>
-						<div class="form-group">
-							<label for="url">URL:</label><input type="url"
-								class="form-control" th:value="${EDIT_VIDEO.url}" name="url" required="required" 
-								id="url"/>
-						</div>
-
-						<div>
-						<iframe width="560" height="315" src="" th:src="${EDIT_VIDEO.url}" frameborder="0" ></iframe>
-						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-success" id="updateVideoBtn">Submit</button>
-						</div>
-
-					</form>
-
-				</div>
-
 			</div>
 
 		</div>
-	</div>
 
+	</div>
 
 </body>
 
