@@ -21,14 +21,14 @@ public class UserCourseVideoDAO {
 
 	public List<UserCourseVideo> list(Long courseId,Long userId) {
 		
-		String sql="SELECT c.course_id, c.course_name,c.description,v.title,v.url,uc.id,uc.status FROM "
-				+ "courses c,videos v, course_videos cv,user_course_videos uc WHERE c.course_id = cv.course_id "
+		String sql="SELECT c.course_id, c.course_name,c.description,v.title,v.url,uc.id,uc.status,  cv.activity_type  FROM "
+				+ "courses c,videos v, course_activities cv,user_course_videos uc WHERE c.course_id = cv.course_id "
 				+ "AND v.video_id  = cv.video_id AND uc.course_video_id=cv.id AND cv.course_id=? AND uc.user_id=?";
 		
 		System.out.println(sql);
 		List<UserCourseVideo> list = jdbcTemplate.query(sql, new Object[] {courseId,userId}, (rs, rowNum) -> {
 			CourseVideo  courseVideo = new  CourseVideo(); 
-						 	
+			courseVideo.setActivityType(rs.getString("activity_type"));
 			Course course=new Course();
 			course.setCourseId(rs.getLong("course_id"));
 			course.setCourseName(rs.getString("course_name"));
@@ -55,7 +55,7 @@ public class UserCourseVideoDAO {
 	}
 	public Long pendingVideos(Long courseId,Long userId) throws Exception {
 		 
-        Long pendingVideosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM user_course_videos uc,course_videos cv WHERE "
+        Long pendingVideosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM user_course_videos uc,course_activities cv WHERE "
         		+ " uc.course_video_id=cv.id AND  uc.status='PENDING' AND cv.course_id= ? AND uc.user_id=?",
         		new Object[] {courseId,userId},
                 Long.class);
@@ -65,7 +65,7 @@ public class UserCourseVideoDAO {
 	
 	public Long completeVideos(Long courseId,Long userId) throws Exception {
 		 
-        Long completeVideosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM user_course_videos uc,course_videos cv WHERE "
+        Long completeVideosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM user_course_videos uc,course_activities cv WHERE "
         		+ " uc.course_video_id=cv.id AND  uc.status='COMPLETED' AND cv.course_id= ? AND uc.user_id=?",
         		new Object[] {courseId,userId},
                 Long.class);

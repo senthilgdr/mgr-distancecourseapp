@@ -52,7 +52,7 @@ public class CourseVideoController {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			System.out.println("errorMessage"+e.getMessage());
-			return "../course/list";
+			return "coursevideos/listCourse";
 		}
 	}
 	

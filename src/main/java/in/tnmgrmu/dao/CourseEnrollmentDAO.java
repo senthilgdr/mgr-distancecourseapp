@@ -92,7 +92,7 @@ public class CourseEnrollmentDAO {
 		
 		
 		String sql2 = "INSERT INTO user_course_videos ( user_id, course_video_id) " + 
-				" SELECT " + userId + ", id AS course_videos_id FROM course_videos WHERE course_id = ?";
+				" SELECT " + userId + ", id AS course_videos_id FROM course_activities WHERE course_id = ?";
 		System.out.println("Assign courses :" + sql2 );
 		
 		int rows2 = jdbcTemplate.update(sql2 , courseId);

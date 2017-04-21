@@ -25,6 +25,7 @@ public class CourseVideoDAO {
 	private  CourseVideo convert(ResultSet rs) throws SQLException {
 		CourseVideo  courseVideo = new  CourseVideo(); 
 		courseVideo.setCvId(rs.getLong("course_video_id"));
+		courseVideo.setActivityType(rs.getString("activityType"));
 		 	
 		Course course=new Course();
 		course.setCourseId(rs.getLong("course_id"));
@@ -45,7 +46,7 @@ public class CourseVideoDAO {
 	public List<CourseVideo> list(Long courseId) {
 		
 		String sql="SELECT v.title FROM "
-				+ "videos v, course_videos cv WHERE"
+				+ "videos v, course_activities cv WHERE"
 				+ " v.video_id  = cv.video_id  AND cv.course_id=? ";
 		
 		System.out.println(sql);
@@ -64,7 +65,7 @@ public class CourseVideoDAO {
 	}
 	public Long findTotalVideos(Long courseId) throws Exception {
 		 
-        Long videosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM COURSE_VIDEOS WHERE COURSE_ID=?",new Object[] {courseId},
+        Long videosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM course_activities WHERE COURSE_ID=?",new Object[] {courseId},
                 Long.class);
          
         return videosCount;
@@ -73,9 +74,9 @@ public class CourseVideoDAO {
 	
 	public CourseVideo findById(Long id) {
 
-		String sql = "SELECT c.course_id AS course_id,c.course_name AS course_name,"
+		String sql = "SELECT c.course_id AS course_id,c.course_name AS course_name, cv.activity_type ,"
 				+ "c.description,v.video_id AS video_id,v.url , cv.id AS course_video_id "
-				+ "FROM course_videos cv,courses c,videos v WHERE cv.course_id=c.course_id AND cv.video_id=v.video_id"
+				+ "FROM course_activities cv,courses c,videos v WHERE cv.course_id=c.course_id AND cv.video_id=v.video_id"
 				+ " AND cv.id=?";
 
 		 CourseVideo list = jdbcTemplate.queryForObject(sql, new Object[] {id}, (rs, rowNum) -> {
