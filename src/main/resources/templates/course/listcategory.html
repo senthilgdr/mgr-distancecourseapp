@@ -22,21 +22,19 @@
 								</div>
 							</div>
 							<div class="portlet-body">
-							<form id="addCategoryFrm" class="form-horizontal" role="form"
+								<form id="addCategoryFrm" class="form-horizontal" role="form"
 									method="GET" action="../courses/listCategory">
-							Select Category: 
-							<select  class="selectpicker" name="category">
-							<option>All </option>
-							<option th:each="c,iter  : ${CATEGORY_LIST}"
-												th:value="${c}"
-												th:text="${c}" th:selected="${(c==SELECTED_CATEGORY)}"></option>
-							
-							</select>
-							<button type="submit" class="btn btn-primary"
-											id="addCategoryBtn">Search</button>
-							</form>
-							
-							<br/>
+									Select Category: <select class="selectpicker" name="category">
+										<option>All</option>
+										<option th:each="c,iter  : ${CATEGORY_LIST}" th:value="${c}"
+											th:text="${c}" th:selected="${(c==SELECTED_CATEGORY)}"></option>
+
+									</select>
+									<button type="submit" class="btn btn-primary"
+										id="addCategoryBtn">Search</button>
+								</form>
+
+								<br />
 								<div class="table-responsive">
 									<table class="table table-bordered">
 										<thead>
@@ -44,7 +42,7 @@
 												<th>S.NO</th>
 												<th>COURSE NAME</th>
 												<th>CATEGORY</th>
-												
+
 											</tr>
 										</thead>
 										<tbody>
@@ -54,10 +52,6 @@
 												<td th:text="${iter.index+1}"></td>
 												<td th:text="${course.courseName}"></td>
 												<td th:text="${course.category}"></td>
-												
-												<td><a class='btn btn-success' href=""
-													th:href="@{/courses/create}"><span
-														class='icon-pencil'></span>Add</a></td>
 
 												<td><a class='btn btn-success' href=""
 													th:href="@{/courses/edit(id=${course.courseId})}"><span
@@ -71,7 +65,9 @@
 
 										</tbody>
 									</table>
-
+									<br />
+									<a class='btn btn-success' href="" th:href="@{/courses/create}"><span
+										class='icon-pencil'></span>Add</a>
 								</div>
 							</div>
 
@@ -85,6 +81,6 @@
 		</div>
 
 	</div>
-	
+
 </body>
 </html>

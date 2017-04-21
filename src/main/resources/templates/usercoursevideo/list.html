@@ -43,6 +43,7 @@
 										<thead>
 											<tr>
 												<th>S.No</th>
+												<th>Title</th>
 												<th>Video</th>
 												<th>Status</th>
 
@@ -53,6 +54,7 @@
 
 											<tr th:each="c,iter  : ${USER_COURSE_VIDEO_LIST}">
 												<td th:text="${iter.index+1}"></td>
+												<td th:text="${c.courseVideo.video.title}"></td>
 
 												<td><iframe width="360" height="200" src=""
 														th:src="${c.courseVideo.video.url}" frameborder="0"></iframe>

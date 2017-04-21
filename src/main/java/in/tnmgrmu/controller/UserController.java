@@ -36,7 +36,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "/home";
 		}
 	}
@@ -50,7 +50,7 @@ public class UserController {
 			return "redirect:/users/list";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "user/list";
 		}
 	}
@@ -67,7 +67,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "user/list";
 		}
 
@@ -99,7 +99,7 @@ public class UserController {
 			return "redirect:/users/myProfile";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "edit";
 		}
 
@@ -116,7 +116,7 @@ public class UserController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "/home";
 		}
 	}
@@ -137,8 +137,8 @@ public class UserController {
 			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
-			return "forgotpassword";
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "user/forgotpassword";
 		}
 
 	}
@@ -161,7 +161,7 @@ public class UserController {
 			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "index";
 		}
 

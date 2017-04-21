@@ -23,11 +23,22 @@ public class CourseController {
 	private CourseService courseService;
 
 	@GetMapping("/list")
-	public String list(ModelMap modelMap, HttpSession session) throws Exception {
+	public String list(@RequestParam(value = "category", required = false)  String category,ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 
-			List<Course> list = courseService.list();
+			List<String> str = courseService.findAllCategory();
+			System.out.println("Category:" + str);
+			modelMap.addAttribute("CATEGORY_LIST", str);
+
+			List<Course> list = null;
+			if ( category == null || category.equals("All")){
+				list = courseService.list();
+			}else{
+				
+				list=courseService.list(category);
+			}
+			modelMap.addAttribute("SELECTED_CATEGORY", category);
 			System.out.println("list:" + list);
 			modelMap.addAttribute("COURSE_LIST", list);
 

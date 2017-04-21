@@ -1,6 +1,6 @@
 
 <%
-String errorMessage = (String) request.getAttribute("ERROR_MESSAGE");
+String errorMessage = (String) request.getAttribute("errorMessage");
 if (errorMessage != null) {
 		%>
 <div class="alert alert-danger">
@@ -9,7 +9,7 @@ if (errorMessage != null) {
 <%
 }
 
-String sessionErrorMessage = (String) session.getAttribute("ERROR_MESSAGE");
+String sessionErrorMessage = (String) session.getAttribute("errorMessage");
 if (sessionErrorMessage != null) {
 		%>
 <div class="alert alert-danger">
@@ -18,7 +18,7 @@ if (sessionErrorMessage != null) {
 <%
 }
 
-String infoMessage = (String) request.getAttribute("INFO_MESSAGE");
+String infoMessage = (String) request.getAttribute("infoMessage");
 if (infoMessage != null) {
 		%>
 <div class="alert alert-success">
@@ -27,7 +27,7 @@ if (infoMessage != null) {
 <%
 }
 
-String sessionInfoMessage = (String) session.getAttribute("INFO_MESSAGE");
+String sessionInfoMessage = (String) session.getAttribute("infoMessage");
 if (sessionInfoMessage != null) {
 		%>
 <div class="alert alert-success">

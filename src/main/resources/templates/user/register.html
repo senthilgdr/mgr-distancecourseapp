@@ -20,11 +20,12 @@
 							<div class="portlet-title">
 								<div class="page-header">
 									<h4>Create a New Account</h4>
+									<h4 th:text="${errorMessage}"></h4>
 								</div>
 							</div>
 							<div class="portlet-body">
 								<form id="addUserFrm" class="form-horizontal" role="form"
-									method="GET" action="../auth/register">
+									method="POST" action="../auth/register">
 
 									<div class="form-group">
 										<label for="name">NAME:</label><input type="text"

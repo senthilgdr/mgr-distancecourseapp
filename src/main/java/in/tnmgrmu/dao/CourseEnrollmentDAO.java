@@ -96,8 +96,7 @@ public class CourseEnrollmentDAO {
 		System.out.println("Assign courses :" + sql2 );
 		
 		int rows2 = jdbcTemplate.update(sql2 , courseId);
-		System.out.println("No of course videos assigned:" + rows2);
-		
+		System.out.println("No of course videos assigned:" + rows2);		
 		
 	}
 
@@ -127,7 +126,6 @@ public class CourseEnrollmentDAO {
 			return convert(rs);
 		});
 		return courseEnroll;
-
 	}
 	
 }

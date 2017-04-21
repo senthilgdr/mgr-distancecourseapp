@@ -35,7 +35,7 @@ public class AuthController {
 
 			return "/home"; 
 		} else {
-			modelMap.addAttribute("ERROR_MESSAGE", "Invalid EmailID/Password");
+			modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
 			return "/index";
 		}
 	}
@@ -69,8 +69,8 @@ public class AuthController {
 			return "redirect:../";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
-			return "user/register";
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/user/register";
 		}
 
 	}

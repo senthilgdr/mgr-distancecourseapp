@@ -26,5 +26,9 @@ public class UserCourseVideoService {
 	public Long completedVideos(Long courseId,Long userId) throws Exception {
 		return userCourseVidoeDAO.completeVideos(courseId,userId);
 	}
+	public void updateStatus(Long courseVideoId){
+		userCourseVidoeDAO.updateStatus(courseVideoId);
+	}
+
 		
 }

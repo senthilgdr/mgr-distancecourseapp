@@ -22,7 +22,19 @@
 								</div>
 							</div>
 							<div class="portlet-body">
+								<form id="addCategoryFrm" class="form-horizontal" role="form"
+									method="GET" action="../courses/list">
+									<b>Select Category: </b><select class="selectpicker" name="category">
+										<option>All</option>
+										<option th:each="c,iter  : ${CATEGORY_LIST}" th:value="${c}"
+											th:text="${c}" th:selected="${(c==SELECTED_CATEGORY)}"></option>
 
+									</select>
+									<button type="submit" class="btn btn-primary"
+										id="addCategoryBtn">Search</button>
+								</form>
+
+								<br />
 								<div class="row">
 									<div class="col-sm-6" th:each="course,iter  : ${COURSE_LIST}">
 										<div class="card">
@@ -31,7 +43,7 @@
 												<p class="card-text" th:text="${course.description}"></p>
 												<a href="#"
 													th:href="@{/coursevideos/listCourse(courseId=${course.courseId})}"
-													class="btn btn-primary btn-sm">Course Details</a>
+													class="btn btn-primary btn-md">Course Details</a>
 											</div>
 										</div>
 									</div>
@@ -46,6 +58,6 @@
 
 		</div>
 	</div>
-	
+
 </body>
 </html>

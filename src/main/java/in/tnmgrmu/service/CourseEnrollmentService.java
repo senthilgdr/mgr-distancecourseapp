@@ -27,10 +27,6 @@ public class CourseEnrollmentService {
 		courseEnrollmentDAO.courseEnroll(course);
 	}
 
-	public void delete(Long enrollmentId) {
-
-		courseEnrollmentDAO.delete(enrollmentId);
-	}
 	public List<CourseEnrollment> findByUserId(Long userId) {
 
 		return courseEnrollmentDAO.findByUserId(userId);
@@ -40,6 +36,9 @@ public class CourseEnrollmentService {
 
 		return courseEnrollmentDAO.findByCourseId(courseId);
 	}
+	public void delete(Long enrollmentId) {
 
+		courseEnrollmentDAO.delete(enrollmentId);
+	}
 
 }

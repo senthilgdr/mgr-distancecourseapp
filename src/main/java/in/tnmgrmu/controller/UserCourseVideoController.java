@@ -68,7 +68,7 @@ public class UserCourseVideoController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "/home";
+			return "usercoursevideo/list";
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class UserCourseVideoController {
 		System.out.println("Update Status-> id=" + id );
 		try {
 			
-	    	courseVideoService.updateStatus(id);
+			userCourseVideoService.updateStatus(id);
 
 			return "redirect:/usercoursevideos/list?courseId=" + courseId;
 		} catch (Exception e) {

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import in.tnmgrmu.dao.CourseVideoDAO;
 import in.tnmgrmu.model.CourseVideo;
-import in.tnmgrmu.model.UserCourseVideo;
 
 @Service
 public class CourseVideoService {
@@ -21,11 +20,6 @@ public class CourseVideoService {
 	public CourseVideo findById(Long id) { 
 		return courseVidoeDAO.findById(id);
 
-	}
-	
-	public void updateStatus(Long courseVideoId){
-		courseVidoeDAO.updateStatus(courseVideoId);
-	}
-
+	}	
 	
 }

@@ -11,28 +11,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import in.tnmgrmu.model.Category;
-import in.tnmgrmu.service.CategoryService;
-
-
+import in.tnmgrmu.model.Batch;
+import in.tnmgrmu.service.BatchService;
 
 @Controller
-@RequestMapping("categories")
-public class CategoryController {
+@RequestMapping("batches")
+public class BatchController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private BatchService batchService;
 
 	@GetMapping("/list")
 	public String list(ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
 
-			List<Category> list = categoryService.list();
+			List<Batch> list = batchService.list();
 			System.out.println("list:" + list);
-			modelMap.addAttribute("CATEGORY_LIST", list);
+			modelMap.addAttribute("BATCH_LIST", list);
 
-			return "category/list";
+			return "batch/list";
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,21 +38,21 @@ public class CategoryController {
 			return "/home";
 		}
 	}
-
+	
 	@GetMapping("/create")
 	public String create() {
-		return "category/add";
+		return "batch/add";
 	}
 
 	@GetMapping("/save")
-	public String save(@RequestParam("categoryName") String categoryName, ModelMap modelMap, HttpSession session) throws Exception {
+	public String save(@RequestParam("name") String name, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+
 			// Step : Store in View
-			Category category = new Category();
-			category.setCategoryName(categoryName);
-			
-			categoryService.save(category);
+			Batch batch = new Batch();
+			batch.setBatchName(name);
+			batchService.save(batch);
 
 			return "redirect:list";
 		} catch (Exception e) {
@@ -68,13 +66,13 @@ public class CategoryController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-			categoryService.delete(Long.valueOf(id));
+			batchService.delete(Long.valueOf(id));
 
-			return "redirect:/categories/list";
+			return "redirect:/batches/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "category/list";
+			return "batch/list";
 		}
 
 	}
@@ -84,31 +82,31 @@ public class CategoryController {
 
 		try {
 
-			Category category = categoryService.findById(id);
-			modelMap.addAttribute("EDIT_CATEGORY", category);
+			Batch batch = batchService.findById(id);
+			modelMap.addAttribute("EDIT_BATCH", batch);
 
-			return "category/edit";
+			return "batch/edit";
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "category/list";
+			return "batch/list";
 		}
 
 	}
 
 	@GetMapping("/update")
-	public String update(@RequestParam("id") Long id,@RequestParam("categoryName") String categoryName, ModelMap modelMap,
+	public String update(@RequestParam("id") Long id, @RequestParam("name") String name, ModelMap modelMap,
 			HttpSession session) throws Exception {
 
 		try {
-			
-			Category category = new Category();
-			category.setCategoryId(id);
-			category.setCategoryName(categoryName);
-			categoryService.update(category);
 
-			return "redirect:/categories/list";
+			Batch batch = new Batch();
+			batch.setBatchId(id);
+			batch.setBatchName(name);
+			batchService.update(batch);
+
+			return "redirect:/batches/list";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());

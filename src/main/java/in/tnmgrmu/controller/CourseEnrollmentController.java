@@ -34,13 +34,11 @@ public class CourseEnrollmentController {
 		try {
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			
-			CourseEnrollment courseEnroll = new CourseEnrollment();
-			
+			CourseEnrollment courseEnroll = new CourseEnrollment();			
 			courseEnroll.setUser(user);
 			
 			Course course=new Course();
-			course.setCourseId(courseId);
-						
+			course.setCourseId(courseId);						
 			courseEnroll.setCourse(course);	
 			
 			courseEnrollmentService.courseEnroll(courseEnroll);
@@ -52,22 +50,6 @@ public class CourseEnrollmentController {
 			return "../coursevideos/listCourse";
 		}
 	}	
-	
-	@GetMapping("/cancelCourse")
-	public String cancelCourse(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
-
-		try {
-			courseEnrollmentService.delete(Long.valueOf(id));
-
-			return "redirect:/coursesenrollments/list";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "courseenrollment/list";
-		}
-
-	}
-	
 	
 	@GetMapping("/myCourses")
 	public String myCourses(ModelMap modelMap, HttpSession session) throws Exception {
@@ -107,5 +89,19 @@ public class CourseEnrollmentController {
 		}
 	}
 	
+	@GetMapping("/cancelCourse")
+	public String cancelCourse(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
+
+		try {
+			courseEnrollmentService.delete(Long.valueOf(id));
+
+			return "redirect:/api/coursesenrollments/myCourses";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "courseenrollment/list";
+		}
+
+	}
 	
 }

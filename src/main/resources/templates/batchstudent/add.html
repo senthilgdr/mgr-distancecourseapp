@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Add CourseModule</title>
+<title>Add BatchStudent</title>
 
 </head>
 <body>
@@ -19,32 +19,28 @@
 
 							<div class="portlet-title">
 								<div class="page-header">
-									<h4>Add CourseModule</h4>
+									<h4>Add BatchStudent</h4>
 								</div>
 							</div>
 							<div class="portlet-body">
-								<form id="addCourseModuleFrm" class="form-horizontal"
-									role="form" method="GET" action="../coursemodules/save">
+								<form id="addBatchStudentFrm" class="form-horizontal"
+									role="form" method="GET" action="../batchstudents/save">
 
 									<div class="form-group">
-										<label for="courseId">Course Name:</label> <select
-											name="courseId">
+										<label for="batchId">Batch Name:</label> <select
+											name="batchId">
 
-											<option th:each="c,iter  : ${COURSE_LIST}"
-												th:value="${c.courseId}"
-												th:text="${c.courseId} +'-' + ${c.courseName}"></option>
+											<option th:each="b,iter  : ${BATCH_LIST}"
+												th:value="${b.batchId}"
+												th:text="${b.batchId} +'-' + ${b.batchName}"></option>
 
 										</select>
 									</div>
 
-									<div class="form-group">
-										<label for="moduleName">ModuleName:</label><input type="text"
-											class="form-control" name="moduleName" id="moduleName" />
-									</div>
 
 									<div class="form-group">
 										<button type="submit" class="btn btn-success"
-											id="addCourseModuleBtn">Submit</button>
+											id="addbatchStudentBtn">Submit</button>
 									</div>
 
 								</form>

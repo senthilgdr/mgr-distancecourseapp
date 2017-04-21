@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Add Category</title>
+<title>Update Batches</title>
 
 </head>
 <body>
@@ -15,28 +15,32 @@
 				<div class="container-fluid">
 
 					<div class="row">
-
 						<div class="col-md-2">
 
 							<div class="portlet-title">
 								<div class="page-header">
-									<h4>AddCategory</h4>
+									<h4>Update Batches</h4>
 								</div>
 							</div>
 							<div class="portlet-body">
-								<form id="addCategoryFrm" class="form-horizontal" role="form"
-									method="GET" action="../categories/save">
+								<form id="updateBatcheFrm" class="form-horizontal" role="form"
+									method="GET" action="../batches/update">
+									<div class="form-group">
+										<input type="hidden" class="form-control"
+											th:value="${EDIT_BATCH.batchId}" name="id" required="required"
+											readonly="readonly" id="id" />
+									</div>
 
 									<div class="form-group">
-										<label for="categoryName">CategoryName:</label><input
-											type="text" class="form-control" name="categoryName"
-											required="required" autofocus="autofocus" id="categoryName" />
+										<label for="batcheName">Batch Name:</label><input type="text"
+											class="form-control" th:value="${EDIT_BATCH.batchName}" name="name"
+											required="required" id="name" />
 									</div>
 
 
 									<div class="form-group">
 										<button type="submit" class="btn btn-success"
-											id="addCategoryBtn">Submit</button>
+											id="updateBatcheBtn">Submit</button>
 									</div>
 
 								</form>

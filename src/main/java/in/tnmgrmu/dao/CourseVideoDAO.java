@@ -70,15 +70,6 @@ public class CourseVideoDAO {
         return videosCount;
     }
 	
-	public void updateStatus(Long statusId) {
-
-		String sql = "update  user_course_videos set status='COMPLETED',completion_date=now() where  id =? ";
-
-		Integer rows = jdbcTemplate.update(sql,statusId);
-
-		System.out.println("No of rows modified:" + rows);
-
-	}
 	
 	public CourseVideo findById(Long id) {
 

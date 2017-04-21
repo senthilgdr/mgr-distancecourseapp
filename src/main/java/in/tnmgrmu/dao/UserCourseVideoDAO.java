@@ -21,7 +21,7 @@ public class UserCourseVideoDAO {
 
 	public List<UserCourseVideo> list(Long courseId,Long userId) {
 		
-		String sql="SELECT c.course_id, c.course_name,c.description,v.url,uc.id,uc.status FROM "
+		String sql="SELECT c.course_id, c.course_name,c.description,v.title,v.url,uc.id,uc.status FROM "
 				+ "courses c,videos v, course_videos cv,user_course_videos uc WHERE c.course_id = cv.course_id "
 				+ "AND v.video_id  = cv.video_id AND uc.course_video_id=cv.id AND cv.course_id=? AND uc.user_id=?";
 		
@@ -38,6 +38,7 @@ public class UserCourseVideoDAO {
 			
 			Video video=new Video();
 			/*video.setId(rs.getLong("video_id"));*/
+			video.setTitle(rs.getString("title"));
 			video.setUrl(rs.getString("url"));
 			courseVideo.setVideo(video);
 			
@@ -71,4 +72,13 @@ public class UserCourseVideoDAO {
          
         return completeVideosCount;
     }
+	public void updateStatus(Long statusId) {
+
+		String sql = "update  user_course_videos set status='COMPLETED',completion_date=now() where  id =? ";
+
+		Integer rows = jdbcTemplate.update(sql,statusId);
+
+		System.out.println("No of rows modified:" + rows);
+
+	}
 }

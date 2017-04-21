@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Update CourseModule</title>
+<title>Update BatchStudent</title>
 
 </head>
 <body>
@@ -19,37 +19,37 @@
 
 							<div class="portlet-title">
 								<div class="page-header">
-									<h4>Update CourseModule</h4>
+									<h4>Update BatchStudent</h4>
 								</div>
 							</div>
 							<div class="portlet-body">
-								<form id="updateCourseModuleFrm" class="form-horizontal"
-									role="form" method="GET" action="../coursemodules/update">
+								<form id="updateBatchStudentFrm" class="form-horizontal"
+									role="form" method="GET" action="../batchstudents/update">
+									
 									<div class="form-group">
 										<input type="hidden" class="form-control"
-											th:value="${EDIT_COURSE_MODULE.courseModuleId}" name="id"
+											th:value="${EDIT_BATCH_STUDENT.batchStudentId}" name="id"
 											required="required" readonly="readonly" id="id" />
 									</div>
 
 									<div class="form-group">
-										<label for="courseId">CourseName:</label> <select
-											name="courseId" class="form-control">
-											<option th:value="${EDIT_COURSE_MODULE.course.courseId}"
-												th:text="${EDIT_COURSE_MODULE.course.courseName}">
+										<label for="batchId">BatchName:</label> <!-- <select
+											name="batchId" class="form-control">
+											<option th:value="${EDIT_BATCH_STUDENT.batch.batchId}" 
+												th:text="${EDIT_BATCH_STUDENT.batch.batchName}">
 											</option>
+										</select> -->
+										<select name="batchId">
+											<option th:each="b,iter  : ${BATCH_LIST}"
+												th:value="${b.batchId}"
+												th:text="${b.batchId} +'-' + ${b.batchName}"></option>
+
 										</select>
 									</div>
 
 									<div class="form-group">
-										<label for="moduleName">ModuleName:</label><input type="text"
-											class="form-control"
-											th:value="${EDIT_COURSE_MODULE.moduleName}" name="moduleName"
-											id="moduleName" />
-									</div>
-
-									<div class="form-group">
 										<button type="submit" class="btn btn-success"
-											id="updateCourseModuleBtn">Submit</button>
+											id="updateBatchStudentBtn">Submit</button>
 									</div>
 
 								</form>
