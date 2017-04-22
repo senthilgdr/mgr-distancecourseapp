@@ -10,6 +10,7 @@ public class User {
 	private Long id;
 
 	private String name;
+	private String gender;
 
 	private String password;
 
@@ -20,7 +21,7 @@ public class User {
 	private Long mobileNo;
 
 	private boolean active;
-	
+
 	private LocalDate createdDate;
 
 	private LocalDate modifiedDate;

@@ -26,7 +26,10 @@ public class CourseController {
 	public String list(@RequestParam(value = "category", required = false)  String category,ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-
+			if (category == null || "".equals(category.trim())) {
+				throw new Exception("Invalid Category");
+			}
+			
 			List<String> str = courseService.findAllCategory();
 			System.out.println("Category:" + str);
 			modelMap.addAttribute("CATEGORY_LIST", str);
@@ -56,6 +59,9 @@ public class CourseController {
 			HttpSession session) throws Exception {
 
 		try {
+			if (category == null || "".equals(category.trim())) {
+				throw new Exception("Invalid Category");
+			}
 			List<String> str = courseService.findAllCategory();
 			System.out.println("Category:" + str);
 			modelMap.addAttribute("CATEGORY_LIST", str);
@@ -90,6 +96,15 @@ public class CourseController {
 			@RequestParam("category") String category, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (courseName == null || "".equals(courseName.trim())) {
+				throw new Exception("Invalid CourseName");
+			}
+			if (description == null || "".equals(description.trim())) {
+				throw new Exception("Invalid Description");
+			}
+			if (category == null || "".equals(category.trim())) {
+				throw new Exception("Invalid Category");
+			}
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			// Step : Store in View
 			Course course = new Course();
@@ -113,6 +128,9 @@ public class CourseController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			courseService.delete(Long.valueOf(id));
 
 			return "redirect:/courses/list";
@@ -128,6 +146,9 @@ public class CourseController {
 	public String courseEnable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			Course course = new Course();
 			course.setCourseId(id);
 			courseService.courseEnable(course);
@@ -145,6 +166,9 @@ public class CourseController {
 	public String courseDisable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			Course course = new Course();
 			course.setCourseId(id);
 			courseService.courseDisable(course);
@@ -162,7 +186,9 @@ public class CourseController {
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			Course course = courseService.findById(id);
 			modelMap.addAttribute("EDIT_COURSE", course);
 
@@ -182,6 +208,18 @@ public class CourseController {
 			ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
+			if (courseName == null || "".equals(courseName.trim())) {
+				throw new Exception("Invalid CourseName");
+			}
+			if (description == null || "".equals(description.trim())) {
+				throw new Exception("Invalid Description");
+			}
+			if (category == null || "".equals(category.trim())) {
+				throw new Exception("Invalid Category");
+			}
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			Course course = new Course();
 			course.setCourseId(id);

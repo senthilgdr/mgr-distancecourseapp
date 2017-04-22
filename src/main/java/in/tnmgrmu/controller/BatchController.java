@@ -48,7 +48,10 @@ public class BatchController {
 	public String save(@RequestParam("name") String name, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid BatchName");
+			}
+			
 			// Step : Store in View
 			Batch batch = new Batch();
 			batch.setBatchName(name);
@@ -66,6 +69,9 @@ public class BatchController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid BatchId");
+			}
 			batchService.delete(Long.valueOf(id));
 
 			return "redirect:/batches/list";
@@ -81,7 +87,9 @@ public class BatchController {
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid BatchId");
+			}
 			Batch batch = batchService.findById(id);
 			modelMap.addAttribute("EDIT_BATCH", batch);
 
@@ -100,7 +108,14 @@ public class BatchController {
 			HttpSession session) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid BatchId");
+			}
+			
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid BatchName");
+			}
+			
 			Batch batch = new Batch();
 			batch.setBatchId(id);
 			batch.setBatchName(name);

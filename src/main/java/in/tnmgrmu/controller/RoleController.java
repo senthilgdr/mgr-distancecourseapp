@@ -48,7 +48,9 @@ public class RoleController {
 	public String save(@RequestParam("name") String name, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid RoleName");
+			}
 			// Step : Store in View
 			Role role = new Role();
 			role.setName(name);
@@ -68,6 +70,9 @@ public class RoleController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid RoleId");
+			}
 			roleService.delete(Long.valueOf(id));
 
 			return "redirect:/roles/list";
@@ -83,7 +88,9 @@ public class RoleController {
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid RoleId");
+			}
 			Role role = roleService.findById(id);
 			modelMap.addAttribute("EDIT_ROLE", role);
 
@@ -102,7 +109,12 @@ public class RoleController {
 			HttpSession session) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid RoleId");
+			}
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid RoleName");
+			}
 			Role role = new Role();
 			role.setId(id);
 			role.setName(name);

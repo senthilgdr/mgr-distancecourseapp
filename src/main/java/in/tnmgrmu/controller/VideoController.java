@@ -48,6 +48,12 @@ public class VideoController {
 	public String save(@RequestParam("title") String title,@RequestParam("url") String url, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (title == null || "".equals(title.trim())) {
+				throw new Exception("Invalid Title");
+			}
+			if (url == null || "".equals(url.trim())) {
+				throw new Exception("Invalid url");
+			}
 
 			// Step : Store in View
 			Video video = new Video();
@@ -68,6 +74,9 @@ public class VideoController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid VideoId");
+			}
 			videoService.delete(Long.valueOf(id));
 
 			return "redirect:/videos/list";
@@ -83,7 +92,9 @@ public class VideoController {
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
-
+			if (id == null ) {
+				throw new Exception("Invalid VideoId");
+			}
 			Video Video = videoService.findById(id);
 			modelMap.addAttribute("EDIT_VIDEO", Video);
 
@@ -102,6 +113,15 @@ public class VideoController {
 			HttpSession session) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid VideoId");
+			}
+			if (title == null || "".equals(title.trim())) {
+				throw new Exception("Invalid Title");
+			}
+			if (url == null || "".equals(url.trim())) {
+				throw new Exception("Invalid url");
+			}
 
 			Video video = new Video();
 			video.setId(id);

@@ -1,4 +1,4 @@
-package in.tnmgrmu.dao;
+/*package in.tnmgrmu.dao;
 
 import java.util.List;
 
@@ -81,3 +81,4 @@ public class TestUser {
 	}
 
 }
+*/

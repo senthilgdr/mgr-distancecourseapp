@@ -22,6 +22,7 @@ public class UserDAO {
 		User user = new User();
 		user.setId(rs.getLong("id"));
 		user.setName(rs.getString("name"));
+		user.setGender(rs.getString("gender"));
 		user.setEmail(rs.getString("email"));
 		user.setMobileNo(rs.getLong("mobile_no"));
 		user.setActive(rs.getBoolean("active"));
@@ -38,7 +39,7 @@ public class UserDAO {
 
 	public User findByEmailAndPassword(String emailId, String password) {
 
-		String sql = "select u.id, u.name, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? and password = ?";
+		String sql = "select u.id, u.name, u.gender,u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? and password = ?";
 
 		User user = null;
 
@@ -58,7 +59,7 @@ public class UserDAO {
 	
 	public User findById(Long id) {
 
-		String sql = "select u.id, u.name, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.id = ?";
+		String sql = "select u.id, u.name, u.gender, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.id = ?";
 
 		User user = jdbcTemplate.queryForObject(sql, new Object[] { id }, (rs, rowNum) -> {
 
@@ -71,10 +72,10 @@ public class UserDAO {
 
 	public void save(User user) {
 
-		String sql = "insert into user_accounts ( name,email, password, mobile_no, role_id )"
-				+ "VALUES ( ?, ?, ?,?,?)";
+		String sql = "insert into user_accounts ( name,gender,email, password, mobile_no, role_id )"
+				+ "VALUES ( ?, ?, ?,?,?,?)";
 
-		int rows = jdbcTemplate.update(sql, user.getName(), user.getEmail(), user.getPassword(), user.getMobileNo(),
+		int rows = jdbcTemplate.update(sql, user.getName(),user.getGender(), user.getEmail(), user.getPassword(), user.getMobileNo(),
 				user.getRole().getId());
 
 		System.out.println("No of rows inserted:" + rows);
@@ -82,7 +83,7 @@ public class UserDAO {
 
 	public List<User> list() {
 
-		String sql = "select u.id, u.name, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id";
+		String sql = "select u.id, u.name, u.gender, u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id";
 
 		List<User> list = jdbcTemplate.query(sql, new Object[] {}, (rs, rowNum) -> {
 			return convert(rs);

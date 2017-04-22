@@ -101,8 +101,8 @@ public class CourseEnrollmentDAO {
 	}
 
 	public void delete(Long enrollmentId) {
-
-		String sql = "delete from course_enrollment where id = ?";
+		
+		String sql = "update course_enrollment set active=0 where id= ? and active=1";
 		int rows = jdbcTemplate.update(sql, enrollmentId);
 		System.out.println("No of rows deleted:" + rows);
 

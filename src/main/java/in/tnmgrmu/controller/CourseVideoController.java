@@ -35,6 +35,9 @@ public class CourseVideoController {
 			throws Exception {
 
 		try {
+			if (courseId == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			System.out.println(courseId);
 			
 			User emp = (User) session.getAttribute("LOGGED_IN_USER");

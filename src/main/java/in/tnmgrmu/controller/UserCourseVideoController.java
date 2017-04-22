@@ -37,6 +37,10 @@ public class UserCourseVideoController {
 			throws Exception {
 
 		try {
+			if (courseId == null ) {
+				throw new Exception("Invalid UserCourseId");
+			}
+			
 			System.out.println(courseId);
 			
 			User emp = (User) session.getAttribute("LOGGED_IN_USER");
@@ -78,7 +82,9 @@ public class UserCourseVideoController {
 
 		System.out.println("Update Status-> id=" + id );
 		try {
-			
+			if (id == null ) {
+				throw new Exception("Invalid UserCourseId");
+			}
 			userCourseVideoService.updateStatus(id);
 
 			return "redirect:/usercoursevideos/list?courseId=" + courseId;

@@ -32,6 +32,10 @@ public class CourseEnrollmentController {
 	public String courseEnroll(@RequestParam("courseId") Long courseId, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (courseId == null ) {
+				throw new Exception("Invalid CourseId");
+			}
+			
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			
 			CourseEnrollment courseEnroll = new CourseEnrollment();			
@@ -74,6 +78,10 @@ public class CourseEnrollmentController {
 	public String myCourses(@RequestParam("courseEnrollId") Long courseEnrollId,ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (courseEnrollId == null ) {
+				throw new Exception("Invalid courseEnrollId");
+			}
+			
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 						
 			List<CourseEnrollment> list = courseEnrollmentService.findByCourseId(courseEnrollId);
@@ -93,6 +101,9 @@ public class CourseEnrollmentController {
 	public String cancelCourse(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid CourseId");
+			}
 			courseEnrollmentService.delete(Long.valueOf(id));
 
 			return "redirect:/api/coursesenrollments/myCourses";

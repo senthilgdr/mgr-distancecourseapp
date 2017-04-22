@@ -45,6 +45,10 @@ public class UserController {
 	public String delete(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
 
 		try {
+			if (id == null) {
+				throw new Exception("Invalid UserId");
+			}
+			System.out.println(id);	
 			userService.delete(Long.valueOf(id));
 
 			return "redirect:/users/list";
@@ -59,7 +63,10 @@ public class UserController {
 	public String edit(@RequestParam("id") Long id, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-
+			if (id == null) {
+				throw new Exception("Invalid UserId");
+			}
+			System.out.println(id);	
 			User emp = (User) session.getAttribute("LOGGED_IN_USER");
 			modelMap.addAttribute("EDIT_USER", emp);
 
@@ -80,6 +87,22 @@ public class UserController {
 			HttpSession session) throws Exception {
 
 		try {
+			if (id == null ) {
+				throw new Exception("Invalid userId");
+			}
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid Name");
+			}				
+			
+			if (role == null ) {
+				throw new Exception("Invalid RoleId");
+			}
+			if (email == null || "".equals(email.trim())) {
+				throw new Exception("Invalid Email");
+			}
+			if (mobileNo == null) {
+				throw new Exception("Invalid MobileNo");
+			}
 			User user = userService.findById(id);
 			user.setName(name);
 			user.setEmail(email);
@@ -131,7 +154,9 @@ public class UserController {
 	public String forgotPassword(@RequestParam("emailId") String emailId, ModelMap modelMap) throws Exception {
 
 		try {
-
+			if (emailId == null || "".equals(emailId.trim())) {
+				throw new Exception("Invalid EmailId");
+			}
 			userService.forgotPassword(emailId);
 
 			return "redirect:/";
@@ -154,6 +179,12 @@ public class UserController {
 			@RequestParam("newpassword") String newpassword, ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
+			if (currentpassword == null || "".equals(currentpassword.trim())) {
+				throw new Exception("Invalid CurrentPassword");
+			}
+			if (newpassword == null || "".equals(newpassword.trim())) {
+				throw new Exception("Invalid NewPassword");
+			}
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			System.out.println("UpdatePassword:" + user);
 			userService.changePassword(user.getEmail(), currentpassword, newpassword);

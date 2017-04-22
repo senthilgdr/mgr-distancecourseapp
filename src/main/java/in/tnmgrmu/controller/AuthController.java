@@ -25,10 +25,19 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@RequestParam("emailId") String emailId, @RequestParam("password") String password,
-			ModelMap modelMap, HttpSession session) {
+			ModelMap modelMap, HttpSession session) throws Exception{
 		
-		//System.out.println("UserController->login");
-
+		try{			
+		
+		if (emailId == null || "".equals(emailId.trim())) {
+			throw new Exception("Invalid EmailId");
+		}
+		
+		if (password == null || "".equals(password.trim())) {
+			throw new Exception("Invalid Password");
+		}	
+		
+		
 		User user = userService.findByEmailAndPassword(emailId, password);
 		if (user != null) {
 			session.setAttribute("LOGGED_IN_USER", user);
@@ -38,6 +47,14 @@ public class AuthController {
 			modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
 			return "/index";
 		}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
+			return "/index";
+		
+		}
 	}
 	@GetMapping("/create")
 	public String create(){
@@ -45,15 +62,36 @@ public class AuthController {
 	}
 	
 	@PostMapping("/register")
-	public String register(@RequestParam("name") String name,@RequestParam("password") String password,
+	public String register(@RequestParam("name") String name,@RequestParam("gender") String gender,@RequestParam("password") String password,
 			 @RequestParam("role") Long role,
 			@RequestParam("email") String email, 
 			@RequestParam("mobileNo") Long mobileNo, ModelMap modelMap, HttpSession session) throws Exception {
 		try {
 			
+			if (name == null || "".equals(name.trim())) {
+				throw new Exception("Invalid Name");
+			}
+			if (gender == null || "".equals(gender.trim())) {
+				throw new Exception("Invalid Gender");
+			}
+			
+			if (password == null || "".equals(password.trim())) {
+				throw new Exception("Invalid PassWord");
+			}
+			if (role == null ) {
+				throw new Exception("Invalid RoleId");
+			}
+			if (email == null || "".equals(email.trim())) {
+				throw new Exception("Invalid Email");
+			}
+			if (mobileNo == null) {
+				throw new Exception("Invalid MobileNo");
+			}
+			
 			User user = new User();
 			
-			user.setName(name);			
+			user.setName(name);		
+			user.setGender(gender);		
 			user.setEmail(email);
 			user.setPassword(password);
 			user.setMobileNo(mobileNo);
