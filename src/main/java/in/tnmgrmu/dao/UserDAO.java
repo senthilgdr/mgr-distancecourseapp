@@ -39,7 +39,7 @@ public class UserDAO {
 
 	public User findByEmailAndPassword(String emailId, String password) {
 
-		String sql = "select u.id, u.name, u.gender,u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? and password = ?";
+		String sql = "select u.id, u.name, u.gender,u.role_id ,r.name as role_name, u.email, u.mobile_no, u.active, u.created_at, u.modified_at from user_accounts u, roles r where u.role_id = r.id AND u.email = ? AND password = ? AND u.active=1";
 
 		User user = null;
 
@@ -103,11 +103,11 @@ public class UserDAO {
 
 	}
 	
-	public void accountActivate(User user) {
+	public void accountActivate(String email,String code) {
 
-		String sql = "update user_accounts set active=1 where id= ? and active=0 ";
+		String sql = "UPDATE user_accounts  SET active=1 WHERE email=? AND CODE=? ";
 
-		Integer rows = jdbcTemplate.update(sql, user.getId());
+		Integer rows = jdbcTemplate.update(sql, email,code);
 
 		System.out.println("No of rows modified:" + rows);
 

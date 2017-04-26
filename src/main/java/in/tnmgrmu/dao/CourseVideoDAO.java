@@ -63,6 +63,23 @@ public class CourseVideoDAO {
 		});
 		return list;
 	}
+	public List<CourseVideo> listVidoes(Long courseId) {
+		
+		String sql="SELECT cv.id FROM "
+				+ " course_activities cv WHERE"
+				+ " cv.course_id=? ";
+		
+		System.out.println(sql);
+		
+		List<CourseVideo> list = jdbcTemplate.query(sql, new Object[] {courseId}, (rs, rowNum) -> {
+			
+			CourseVideo  courseVideo = new  CourseVideo(); 
+			courseVideo.setCvId(courseId);						
+				
+			return  courseVideo;
+		});
+		return list;
+	}
 	public Long findTotalVideos(Long courseId) throws Exception {
 		 
         Long videosCount = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM course_activities WHERE COURSE_ID=?",new Object[] {courseId},

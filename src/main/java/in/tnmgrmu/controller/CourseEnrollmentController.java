@@ -36,14 +36,16 @@ public class CourseEnrollmentController {
 				throw new Exception("Invalid CourseId");
 			}
 			
+			//not set data in model attribute so got to controller
 			User user = (User) session.getAttribute("LOGGED_IN_USER");
 			
-			CourseEnrollment courseEnroll = new CourseEnrollment();			
-			courseEnroll.setUser(user);
+			
+			CourseEnrollment courseEnroll = new CourseEnrollment();					
 			
 			Course course=new Course();
 			course.setCourseId(courseId);						
 			courseEnroll.setCourse(course);	
+			courseEnroll.setUser(user);
 			
 			courseEnrollmentService.courseEnroll(courseEnroll);
 
@@ -51,7 +53,7 @@ public class CourseEnrollmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "../coursevideos/listCourse";
+			return "redirect:../../coursevideos/listCourse?courseId="+ courseId;
 		}
 	}	
 	
@@ -70,32 +72,9 @@ public class CourseEnrollmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "/coursevideos/listCourse";
-		}
-	}
-	
-	@GetMapping("/viewcourses")
-	public String myCourses(@RequestParam("courseEnrollId") Long courseEnrollId,ModelMap modelMap, HttpSession session) throws Exception {
-
-		try {
-			if (courseEnrollId == null ) {
-				throw new Exception("Invalid courseEnrollId");
-			}
-			
-			User user = (User) session.getAttribute("LOGGED_IN_USER");
-						
-			List<CourseEnrollment> list = courseEnrollmentService.findByCourseId(courseEnrollId);
-			System.out.println("list:" + list);
-			modelMap.addAttribute("COURSE_LIST", list);
-
-			return "courseenrollment/courselist";
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
 			return "/home";
 		}
-	}
+	}	
 	
 	@GetMapping("/cancelCourse")
 	public String cancelCourse(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
@@ -110,7 +89,7 @@ public class CourseEnrollmentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "courseenrollment/list";
+			return "courseenrollment/userlist";
 		}
 
 	}

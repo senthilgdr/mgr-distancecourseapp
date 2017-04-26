@@ -85,7 +85,7 @@ public class CourseDAO {
 		System.out.println("No of rows modified:" + rows);
 
 	}
-	public void courseDisable(Course course) {
+	/*public void courseDisable(Course course) {
 
 		String sql = "update courses set active=0 where course_id= ? and active=1";
 		
@@ -103,7 +103,7 @@ public class CourseDAO {
 		System.out.println("No of rows modified:" + rows);
 
 	}
-
+*/
 	public void delete(Long courseId) {
 
 		String sql = "delete from courses where id = ?";

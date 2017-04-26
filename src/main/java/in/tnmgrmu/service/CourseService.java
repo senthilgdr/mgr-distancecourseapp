@@ -41,15 +41,6 @@ public class CourseService {
 	public void update(Course course) {
 
 		courseDAO.update(course);
-	}
-	
-	public void courseDisable(Course course) {
+	}	
 
-		courseDAO.courseDisable(course);
-	}
-	public void courseEnable(Course course) {
-
-		courseDAO.courseEnable(course);
-	}
-	
 }

@@ -26,10 +26,7 @@ public class CourseController {
 	public String list(@RequestParam(value = "category", required = false)  String category,ModelMap modelMap, HttpSession session) throws Exception {
 
 		try {
-			if (category == null || "".equals(category.trim())) {
-				throw new Exception("Invalid Category");
-			}
-			
+						
 			List<String> str = courseService.findAllCategory();
 			System.out.println("Category:" + str);
 			modelMap.addAttribute("CATEGORY_LIST", str);
@@ -59,9 +56,7 @@ public class CourseController {
 			HttpSession session) throws Exception {
 
 		try {
-			if (category == null || "".equals(category.trim())) {
-				throw new Exception("Invalid Category");
-			}
+			
 			List<String> str = courseService.findAllCategory();
 			System.out.println("Category:" + str);
 			modelMap.addAttribute("CATEGORY_LIST", str);
@@ -132,46 +127,6 @@ public class CourseController {
 				throw new Exception("Invalid CourseId");
 			}
 			courseService.delete(Long.valueOf(id));
-
-			return "redirect:/courses/list";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "course/list";
-		}
-
-	}
-
-	@GetMapping("/courseEnable")
-	public String courseEnable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
-
-		try {
-			if (id == null ) {
-				throw new Exception("Invalid CourseId");
-			}
-			Course course = new Course();
-			course.setCourseId(id);
-			courseService.courseEnable(course);
-
-			return "redirect:/courses/list";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelMap.addAttribute("errorMessage", e.getMessage());
-			return "course/list";
-		}
-
-	}
-
-	@GetMapping("/courseDisable")
-	public String courseDisable(@RequestParam("id") Long id, ModelMap modelMap) throws Exception {
-
-		try {
-			if (id == null ) {
-				throw new Exception("Invalid CourseId");
-			}
-			Course course = new Course();
-			course.setCourseId(id);
-			courseService.courseDisable(course);
 
 			return "redirect:/courses/list";
 		} catch (Exception e) {

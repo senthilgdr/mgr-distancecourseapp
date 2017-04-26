@@ -81,4 +81,13 @@ public class UserCourseVideoDAO {
 		System.out.println("No of rows modified:" + rows);
 
 	}
+	public void insert(Long courseVideoId ) {
+
+		String sql = "insert into user_course_videos(course_video_id) values(?)";
+
+		Integer rows = jdbcTemplate.update(sql,courseVideoId);
+
+		System.out.println("No of rows modified:" + rows);
+
+	}
 }

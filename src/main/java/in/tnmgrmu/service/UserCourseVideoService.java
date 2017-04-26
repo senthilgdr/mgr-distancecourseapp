@@ -30,5 +30,4 @@ public class UserCourseVideoService {
 		userCourseVidoeDAO.updateStatus(courseVideoId);
 	}
 
-		
 }

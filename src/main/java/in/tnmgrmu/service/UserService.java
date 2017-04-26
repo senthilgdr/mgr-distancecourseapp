@@ -39,16 +39,24 @@ public class UserService {
 
 		userDAO.update(user);
 	}
-	public void accountActivate(User user) {
+	public void accountActivate(String email,String code) throws Exception {
+		
+		User user = userDAO.findByEmailId(email);
 
-		userDAO.accountActivate(user);
+		if (user == null) {
+			throw new Exception("MailId does not exists");
+		}
+
+		userDAO.accountActivate(email,code);
 	}
 
 	public void register(User user) throws Exception {
 
 		userDAO.save(user);
+		
 		UserMailManager.sendNewRegistrationEmail(user);
 	}
+	
 	public void forgotPassword(String emailId) throws Exception {
 
 		User user = userDAO.findByEmailId(emailId);

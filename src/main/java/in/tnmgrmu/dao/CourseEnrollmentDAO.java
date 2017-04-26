@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +27,7 @@ public class CourseEnrollmentDAO {
 		CourseEnrollment courseEnroll = jdbcTemplate.queryForObject(sql, new Object[] { id }, (rs, rowNo) -> {
 			return convert(rs);
 		});
+		
 		return courseEnroll;
 
 	}
@@ -79,8 +81,10 @@ public class CourseEnrollmentDAO {
 		return list;
 	}
 
-	public void courseEnroll(CourseEnrollment courseEnroll) {
+	public void courseEnroll(CourseEnrollment courseEnroll) throws Exception {
 
+		try
+		{
 		Long userId = courseEnroll.getUser().getId();
 		Long courseId = courseEnroll.getCourse().getCourseId();
 		
@@ -90,19 +94,25 @@ public class CourseEnrollmentDAO {
 
 		System.out.println("No of rows inserted:" + rows);
 		
-		
+		/*
 		String sql2 = "INSERT INTO user_course_videos ( user_id, course_video_id) " + 
 				" SELECT " + userId + ", id AS course_videos_id FROM course_activities WHERE course_id = ?";
 		System.out.println("Assign courses :" + sql2 );
 		
 		int rows2 = jdbcTemplate.update(sql2 , courseId);
-		System.out.println("No of course videos assigned:" + rows2);		
-		
+		System.out.println("No of course videos assigned:" + rows2);	*/
+		}
+		catch(DuplicateKeyException e) {
+			throw new Exception ("Already course is enrolled");
+		}
+				
 	}
 
 	public void delete(Long enrollmentId) {
 		
-		String sql = "update course_enrollment set active=0 where id= ? and active=1";
+		/*String sql = "update course_enrollment set active=0 where id= ? and active=1";*/
+		String sql="delete from course_enrollment  where id= ?";
+		
 		int rows = jdbcTemplate.update(sql, enrollmentId);
 		System.out.println("No of rows deleted:" + rows);
 

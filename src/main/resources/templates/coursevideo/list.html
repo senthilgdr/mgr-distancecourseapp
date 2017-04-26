@@ -12,7 +12,9 @@
 
 			<div th:include="layout/header"></div>
 			<div class="content">
-			<p th:text="${errorMessage}"></p>
+				<p th:text="${errorMessage}"></p> <!--  request.getAttribute("errorMessage") -->
+			<!-- 	<p th:text="${param.errorMessage[0]}"> </p>--> <!--  request.getParameter("errorMessage") -->
+				
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-10">

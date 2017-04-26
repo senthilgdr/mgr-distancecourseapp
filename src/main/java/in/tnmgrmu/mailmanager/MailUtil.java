@@ -13,7 +13,7 @@ public class MailUtil {
 
 		emailObj.setSmtpPort(587);
 
-		emailObj.setAuthenticator(new DefaultAuthenticator("spin@gmail.com", "password"));
+		emailObj.setAuthenticator(new DefaultAuthenticator("gdr.senthil@gmail.com", "password"));
 
 		emailObj.setDebug(false);
 

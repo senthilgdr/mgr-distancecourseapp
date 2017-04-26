@@ -22,7 +22,7 @@ public class CourseEnrollmentService {
 
 	}
 
-	public void courseEnroll(CourseEnrollment course) {
+	public void courseEnroll(CourseEnrollment course) throws Exception {
 
 		courseEnrollmentDAO.courseEnroll(course);
 	}

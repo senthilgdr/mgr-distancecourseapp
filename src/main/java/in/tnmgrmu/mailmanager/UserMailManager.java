@@ -12,10 +12,11 @@ public class UserMailManager {
 		StringBuilder message = new StringBuilder();
 
 		message.append("Dear" + user.getName() + ",\n");
-		message.append("Successfully you are registered to LMS Website.");
+		message.append("Successfully you are registered to MGr-Distance CourseApp Website.");
+		
+		message.append("\n\n Your Activation Code is :abcd ");
 		message.append("\n Please click the activation link below:");
-		//String activationLink ="http://localhost:8080/ MGR-DisatanceCourse App/activateAccount.jsp?email=" + user.getEmail();
-		//message.append("\n" + activationLink + "\n");
+		message.append("\n http://localhost:8080/auth/accountActivation");
 		message.append("\n\nRegards ");
 		message.append("\n MGR-DisatanceCourse App Support Team");
 

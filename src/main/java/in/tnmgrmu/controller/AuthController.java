@@ -15,7 +15,6 @@ import in.tnmgrmu.model.Role;
 import in.tnmgrmu.model.User;
 import in.tnmgrmu.service.UserService;
 
-
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -25,60 +24,58 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@RequestParam("emailId") String emailId, @RequestParam("password") String password,
-			ModelMap modelMap, HttpSession session) throws Exception{
-		
-		try{			
-		
-		if (emailId == null || "".equals(emailId.trim())) {
-			throw new Exception("Invalid EmailId");
-		}
-		
-		if (password == null || "".equals(password.trim())) {
-			throw new Exception("Invalid Password");
-		}	
-		
-		
-		User user = userService.findByEmailAndPassword(emailId, password);
-		if (user != null) {
-			session.setAttribute("LOGGED_IN_USER", user);
+			ModelMap modelMap, HttpSession session) throws Exception {
 
-			return "/home"; 
-		} else {
-			modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
-			return "/index";
-		}
-		}
-		catch(Exception e)
-		{
+		try {
+
+			if (emailId == null || "".equals(emailId.trim())) {
+				throw new Exception("Invalid EmailId");
+			}
+
+			if (password == null || "".equals(password.trim())) {
+				throw new Exception("Invalid Password");
+			}
+
+			User user = userService.findByEmailAndPassword(emailId, password);
+			if (user != null) {
+				session.setAttribute("LOGGED_IN_USER", user);
+
+				return "/home";
+			} else {
+				modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
+				return "/index";
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", "Invalid EmailID/Password");
 			return "/index";
-		
+
 		}
 	}
+
 	@GetMapping("/create")
-	public String create(){
+	public String create() {
 		return "user/register";
 	}
-	
+
 	@PostMapping("/register")
-	public String register(@RequestParam("name") String name,@RequestParam("gender") String gender,@RequestParam("password") String password,
-			 @RequestParam("role") Long role,
-			@RequestParam("email") String email, 
-			@RequestParam("mobileNo") Long mobileNo, ModelMap modelMap, HttpSession session) throws Exception {
+	public String register(@RequestParam("name") String name, @RequestParam("gender") String gender,
+			@RequestParam("password") String password, @RequestParam("role") Long role,
+			@RequestParam("email") String email, @RequestParam("mobileNo") Long mobileNo, ModelMap modelMap,
+			HttpSession session) throws Exception {
 		try {
-			
+
 			if (name == null || "".equals(name.trim())) {
 				throw new Exception("Invalid Name");
 			}
 			if (gender == null || "".equals(gender.trim())) {
 				throw new Exception("Invalid Gender");
 			}
-			
+
 			if (password == null || "".equals(password.trim())) {
 				throw new Exception("Invalid PassWord");
 			}
-			if (role == null ) {
+			if (role == null) {
 				throw new Exception("Invalid RoleId");
 			}
 			if (email == null || "".equals(email.trim())) {
@@ -87,11 +84,11 @@ public class AuthController {
 			if (mobileNo == null) {
 				throw new Exception("Invalid MobileNo");
 			}
-			
+
 			User user = new User();
-			
-			user.setName(name);		
-			user.setGender(gender);		
+
+			user.setName(name);
+			user.setGender(gender);
 			user.setEmail(email);
 			user.setPassword(password);
 			user.setMobileNo(mobileNo);
@@ -103,7 +100,7 @@ public class AuthController {
 			System.out.println(user);
 
 			userService.register(user);
-			
+
 			return "redirect:../";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,10 +109,41 @@ public class AuthController {
 		}
 
 	}
+
 	@GetMapping("/Logout")
 	public String logout(HttpSession session) {
 
 		session.invalidate();
 		return "redirect:/";
+	}
+
+	@GetMapping("/accountActivation")
+	public String account() {
+		return "user/activation";
+	}
+
+	@GetMapping("/accountActivate")
+	public String activate(@RequestParam("emailId") String emailId, @RequestParam("code") String code,
+			ModelMap modelMap, HttpSession session) throws Exception {
+		System.out.println("Activate:" + emailId + "," + code);
+
+		try {
+			if (emailId == null || "".equals(emailId.trim())) {
+				throw new Exception("Invalid Email");
+			}
+
+			if (code == null || "".equals(code.trim())) {
+				throw new Exception("Invalid code");
+			}
+			userService.accountActivate(emailId, code);
+
+			return "redirect:/";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.addAttribute("errorMessage", e.getMessage());
+			return "/user/activation";
+		}
+
 	}
 }

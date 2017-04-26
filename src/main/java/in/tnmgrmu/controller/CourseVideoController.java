@@ -42,6 +42,7 @@ public class CourseVideoController {
 			
 			User emp = (User) session.getAttribute("LOGGED_IN_USER");
 			
+			// set data in model attribute for next page
 			Course course = courseService.findById(courseId);
 			modelMap.addAttribute("COURSE_DETAIL" , course );
 			
@@ -49,13 +50,13 @@ public class CourseVideoController {
 			System.out.println("list:" + list);
 			modelMap.addAttribute("COURSE_VIDEO_LIST", list);
 
-			return "coursevideo/list";
+			return "coursevideo/list"; //page
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelMap.addAttribute("errorMessage", e.getMessage());
 			System.out.println("errorMessage"+e.getMessage());
-			return "coursevideos/listCourse";
+			return "../courses/list"; //controller
 		}
 	}
 	
